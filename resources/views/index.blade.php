@@ -1,10 +1,9 @@
 @extends('layouts.layout')
 @section('content')
-    <div>
-        <h4>Select figure you want to add:</h4>
-        <div style="margin-top: 10px">
-        <form action="{{  route('figure.addForm') }}" method="get">
-            <select name="figure">
+    <div class="selectFigure">
+        Select figure you want to add:
+        <form  action="{{  route('figure.addForm') }}" method="get">
+            <select name="type">
                 <option value="circle">Circle</option>
                 <option value="square">Square</option>
                 <option value="triangle">Triangle</option>
@@ -14,8 +13,6 @@
                 Add
             </button>
         </form>
-            <a href="/statistics">Статистика</a>
-        </div>
     </div>
 
     @if (session('myMessage'))
@@ -26,10 +23,10 @@
 
     <table>
         <tr>
-            <td>Type of figure</td>
-            <td>Data</td>
-            <td>Area</td>
-            <td>Delete?</td>
+            <th>Type of figure</th>
+            <th>Data</th>
+            <th>Area</th>
+            <th>Delete?</th>
         </tr>
         @foreach($figures as $figure)
             <tr name="id" value="{{ $figure->id }}">

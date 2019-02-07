@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\FigureTypes;
 use App\Http\Requests\SaveFigureRequest;
 use App\Models\Figure;
 use Illuminate\Http\Request;
@@ -15,14 +16,14 @@ class FigureController extends Controller
     public function index()
     {
         $figures = Figure::simplePaginate(20);
-        //dd($figures);
         return view('index', ['figures' => $figures]);
     }
 
     public function add(Request $request)
     {
-        $type = $request->get('figure');
+        $type = $request->get('type');
         /** @var ViewErrorBag $errors */
+
         $errors = Session::pull('errors', new ViewErrorBag());
         return view('add', [
             'type' => $type,
@@ -47,8 +48,18 @@ class FigureController extends Controller
     public function statistics()
     {
         $figures = Figure::all();
+        $areas = array_fill_keys(FigureTypes::getAll(), 0);
+        $allArea = 0;
 
-        return view('statistics', ['figures' => $figures]);
+        $figures->each(function (Figure $figure) use (&$areas, &$allArea): void {
+            $areas[$figure->type] += $figure->getArea();
+            $allArea += $figure->getArea();
+        });
+
+        return view('statistics', [
+            'areas' => $areas,
+            'allArea' => $allArea,
+        ]);
     }
 
     public function delete(Figure $figure)
