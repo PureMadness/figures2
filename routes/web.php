@@ -11,10 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'FigureController@index')->name('index');
 
-Route::get('/statistics',function () {
-    return view('statistics');
-});
+Route::get('/add', 'FigureController@add')->name('figure.addForm');
+
+Route::post('/save', 'FigureController@save')->name('figure.save');
+
+Route::get('/statistics', 'FigureController@statistics')->name('statistics');
+
+Route::get('/delete/{figure}', 'FigureController@delete')
+    ->name('delete')
+    ->where('figure', '[0-9]+')
+;
+

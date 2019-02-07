@@ -15,7 +15,7 @@ class CreateFiguresTable extends Migration
     {
         Schema::create('figures', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('figure');
+            $table->string('type');
             $table->json('data');
         });
     }

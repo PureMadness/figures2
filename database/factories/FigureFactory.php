@@ -13,46 +13,56 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use \Illuminate\Support\Facades\Validator;
+
+use App\Rules\TriangleRule;
+
 use App\Enums\FigureTypes;
 
-$factory->define(App\Models\Circle::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Figure::class, function (Faker\Generator $faker) {
 
-    $figures = [
-        FigureTypes::CIRCLE,
-        FigureTypes::RECTANGLE,
-        FigureTypes::SQUARE,
-        FigureTypes::TRIANGLE,
-    ];
+    $figures = FigureTypes::getAll();
 
-    $type = $faker->randomElement(array($figures));
+    $type = $faker->randomElement($figures);
 
-    if ($type == FigureTypes::CIRCLE){
+    switch ($type) {
+        case (FigureTypes::CIRCLE):
+            $data = ['radius' => $faker->numberBetween(0, 100)];
+            break;
 
-        $data = array("radius" => $faker->numberBetween(0,100),);
-    }
+        case (FigureTypes::RECTANGLE):
+            $data = [
+                'x1' => $faker->numberBetween(-50, 50),
+                'y1' => $faker->numberBetween(-50, 50),
+                'x2' => $faker->numberBetween(-50, 50),
+                'y2' => $faker->numberBetween(-50, 50),
+            ];
+            break;
 
-    if ($type == FigureTypes::RECTANGLE){
+        case (FigureTypes::SQUARE):
+            $data = ['side' => $faker->numberBetween(0, 100)];
+            break;
 
-        $data = array(
-                "x1" => $faker->numberBetween(-50,50),
-                "y1" => $faker->numberBetween(-50,50),
-                "x2" => $faker->numberBetween(-50,50),
-                "y2" => $faker->numberBetween(-50,50),
-            );
-    }
+        case (FigureTypes::TRIANGLE):
+            do {
+                $data = [
+                    'side1' => $faker->numberBetween(0,100),
+                    'side2' => $faker->numberBetween(0,100),
+                    'side3' => $faker->numberBetween(0,100),
+                ];
 
-    if ($type == FigureTypes::SQUARE){
+                $validator = Validator::make([
+                    'triangle' => $data,
+                ], [
+                    'triangle' => new TriangleRule(),
+                ]);
 
-        $data = array("side" => $faker->numberBetween(0,100),);
-    }
+            } while ($validator->fails());
 
-    if ($type == FigureTypes::TRIANGLE){
-
-        $data = array(
-                "side1" => $faker->numberBetween(15,100),
-                "side2" => $faker->numberBetween(15,100),
-                "side3" => $faker->numberBetween(0,30),
-            );
+            break;
+        default:
+            throw new \Exception('Unknown figure type: ' . $type);
+            break;
     }
 
     return [

@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Faker\Generator as Faker;
 use App\Models\Figure;
+use Illuminate\Database\Seeder;
 
 class FigureSeeder extends Seeder
 {
@@ -13,7 +12,7 @@ class FigureSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Figure::query()->truncate();
-        factory(\App\Models\Figure::class, 100)->create();
+        Figure::query()->truncate();
+        factory(\App\Models\Figure::class, 50)->create();
     }
 }

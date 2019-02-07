@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-abstract class FigureTypes
+abstract class FigureTypes extends AbstractEnum
 {
     const CIRCLE = 'circle';
     const SQUARE = 'square';

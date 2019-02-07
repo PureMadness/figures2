@@ -1,95 +1,48 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.layout')
+@section('content')
+    <div>
+        <h4>Select figure you want to add:</h4>
+        <div style="margin-top: 10px">
+        <form action="{{  route('figure.addForm') }}" method="get">
+            <select name="figure">
+                <option value="circle">Circle</option>
+                <option value="square">Square</option>
+                <option value="triangle">Triangle</option>
+                <option value="rectangle">Rectangle</option>
+            </select>
+            <button type="submit">
+                Add
+            </button>
+        </form>
+            <a href="/statistics">Статистика</a>
+        </div>
+    </div>
 
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 100;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-
-        table {
-            border: 1px solid grey; /*устанавливаем для таблицы внешнюю границу серого цвета толщиной 1px*/
-        }
-    </style>
-
-</head>
-    <body>
-
-
-    <select name="figure" disabled>
-        <option >Выберите фигуру</option>
-        <option value="circle">Круг</option>
-        <option value="square">Квадрат</option>
-        <option value="triangle">Треугольник</option>
-        <option value="rectangle">Прямоугольник</option>
-    </select>
-
-
-
-    <form action="" method="post">
-        <input type="text" name="name" placeholder="Что-то про фигуру"/>
-        <input type="submit" name="my_button" value="Нажми"/>
-    </form>
-
+    @if (session('myMessage'))
+        <div class="alert alert-success">
+            {{ session('myMessage') }}
+        </div>
+    @endif
 
     <table>
         <tr>
-            <td>Тип фигуры</td>
-            <td>Площадь</td>
-            <td>Удалить?</td>
+            <td>Type of figure</td>
+            <td>Data</td>
+            <td>Area</td>
+            <td>Delete?</td>
         </tr>
+        @foreach($figures as $figure)
+            <tr name="id" value="{{ $figure->id }}">
+                <td>{{ $figure->type }}</td>
+                <td>{{ print_r($figure['data'], true) }}</td>
+                <td>{{ $figure->getArea() }}</td>
+                <td>
+                    <form action="{{  route('delete', $figure->id) }}" method="get">
+                        <button type="submit">DEL</button>
+                    </form>
+                </td>
+                </tr>
+        @endforeach
     </table>
-    <a href="/statistics">Статистика</a>
-    </body>
-</html>
-<?php
+    {{ $figures->links() }}
+@endsection
