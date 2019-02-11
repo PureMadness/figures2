@@ -2,7 +2,7 @@
 @section('content')
     <div class="selectFigure">
         Select figure you want to add:
-        <form  action="{{  route('figure.addForm') }}" method="get">
+        <form action="{{  route('figure.addForm') }}" method="get">
             <select name="type">
                 <option value="circle">Circle</option>
                 <option value="square">Square</option>
@@ -15,9 +15,9 @@
         </form>
     </div>
 
-    @if (session('myMessage'))
+    @if (session('actionMessage'))
         <div class="alert alert-success">
-            {{ session('myMessage') }}
+            {{ session('actionMessage') }}
         </div>
     @endif
 
@@ -27,6 +27,7 @@
             <th>Data</th>
             <th>Area</th>
             <th>Delete?</th>
+            <th></th>
         </tr>
         @foreach($figures as $figure)
             <tr name="id" value="{{ $figure->id }}">
@@ -38,7 +39,15 @@
                         <button type="submit">DEL</button>
                     </form>
                 </td>
-                </tr>
+                <td>
+                    <form action="{{ route('figure.edit', [
+                    'type' => $figure->type,
+                     'figure' => $figure->id,
+                    ]) }}" method="get">
+                        <button type="submit">Edit</button>
+                    </form>
+                </td>
+            </tr>
         @endforeach
     </table>
     {{ $figures->links() }}
