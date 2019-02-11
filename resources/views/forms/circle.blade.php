@@ -10,4 +10,4 @@
         {{ $error }}<br/>
     @endforeach
 @endif
-<input type="file" name="data.file">
+

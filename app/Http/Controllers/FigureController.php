@@ -16,6 +16,7 @@ class FigureController extends Controller
     public function index()
     {
         $figures = Figure::simplePaginate(20);
+
         return view('index', ['figures' => $figures]);
     }
 
@@ -34,15 +35,13 @@ class FigureController extends Controller
     public function save(SaveFigureRequest $request)
     {
         $data = $request->all();
+        //if(isset($data['id']));
         $figure = new Figure;
         $figure->setAttribute('type', $data['type']);
         $figure->setAttribute('data',$data['data']);
         $figure->save();
 
-        $figures = Figure::all();
-        return view('index', [
-           'figures' => $figures
-        ]);
+        Redirect::route('index');
     }
 
     public function statistics()
@@ -67,6 +66,17 @@ class FigureController extends Controller
         $figure->delete();
 
         return Redirect::route('index')
-            ->with('myMessage', $figure->type . ' figure was deleted!!!');
+            ->with('actionMessage', $figure->type . ' figure was deleted!!!');
+    }
+
+    public function edit(Figure $figure){
+        //$fig = Figure::get($figure);
+        /** @var ViewErrorBag $errors */
+
+        $errors = Session::pull('errors', new ViewErrorBag());
+        return view('edit', [
+            'figure' => $figure,
+            'errors' => $errors,
+        ]);
     }
 }

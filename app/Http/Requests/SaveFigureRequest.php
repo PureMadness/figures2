@@ -26,8 +26,6 @@ class SaveFigureRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [];
-
         switch ($this->get('type')) {
             case FigureTypes::TRIANGLE:
                 $rules = [

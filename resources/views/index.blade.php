@@ -41,7 +41,6 @@
                 </td>
                 <td>
                     <form action="{{ route('figure.edit', [
-                    'type' => $figure->type,
                      'figure' => $figure->id,
                     ]) }}" method="get">
                         <button type="submit">Edit</button>

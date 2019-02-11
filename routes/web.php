@@ -19,7 +19,7 @@ Route::post('/save', 'FigureController@save')->name('figure.save');
 
 Route::get('/statistics', 'FigureController@statistics')->name('statistics');
 
-Route::get('/edit/{type}/{figure}', 'FigureController@edit')->name('figure.edit')
+Route::get('/edit/{figure}', 'FigureController@edit')->name('figure.edit')
     ->where('figure', '[0-9]+');
 
 Route::get('/delete/{figure}', 'FigureController@delete')
