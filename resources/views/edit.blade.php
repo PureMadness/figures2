@@ -9,6 +9,7 @@
             '$figure' => $figure,
             '$id' => $figure->id,
             ])
+            <input type="file" accept="image/*" name="data.file">
             <input type="hidden" name="type" value="{{ $figure->type }}">
             <input type="hidden" name="id" value="{{ $figure->id }}">
             <div>

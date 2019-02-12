@@ -35,13 +35,22 @@ class FigureController extends Controller
     public function save(SaveFigureRequest $request)
     {
         $data = $request->all();
-        //if(isset($data['id']));
-        $figure = new Figure;
-        $figure->setAttribute('type', $data['type']);
-        $figure->setAttribute('data',$data['data']);
-        $figure->save();
+        if(isset($data['id'])){
+            $figure = Figure::find($data['id']);
+            $figure->data = $data['data'];
+            $figure->save();
+            $actionMessage = $figure->type . $figure->id . ' figure has been edited!!!';
+        }
+        else {
+            $figure = new Figure;
+            $figure->type = $data['type'];
+            $figure->data = $data['data'];
+            $figure->save();
+            $actionMessage = 'New ' . $figure->type . ' figure has been saved!!!';
+        }
 
-        Redirect::route('index');
+        return Redirect::route('index')
+            ->with('actionMessage', $actionMessage);
     }
 
     public function statistics()
