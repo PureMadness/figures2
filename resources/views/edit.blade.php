@@ -9,12 +9,18 @@
             '$figure' => $figure,
             '$id' => $figure->id,
             ])
-            <input type="file" accept="image/*" name="image" />
+            <p>
+            <input type="file" accept="image/*" name="image">
+
+            @if($figure->image !== null)
+                    Old image:<img class="image" src="{{ \Illuminate\Support\Facades\Storage::url($figure->image) }}"/>
+            @endif
             @if ($errors->get('image'))
                 @foreach ($errors->get('image') as $error)
                     {{ $error }}<br/>
                 @endforeach
             @endif
+            </p>
             <input type="hidden" name="type" value="{{ $figure->type }}">
             <div>
                 <button type="submit">

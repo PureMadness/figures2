@@ -39,7 +39,7 @@ class FigureController extends Controller
         $path = ($request->hasFile('image')) ? $request->image->store('public/images') : null;
 
         if ($figure !== null) {
-            if ($path !== $figure->image) {
+            if ($path !== $figure->image && $path !== null) {
                 Storage::delete($figure->image);
             } else {
                 $path = $figure->image;
