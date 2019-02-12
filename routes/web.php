@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'FigureController@index')->name('index');
+Route::get('/', 'FigureController@index')
+    ->name('index')
+    ->middleware('login');
 
 Route::get('/add', 'FigureController@add')->name('figure.addForm');
 
@@ -28,3 +30,4 @@ Route::get('/delete/{figure}', 'FigureController@delete')
     ->name('delete')
     ->where('figure', '[0-9]+');
 
+Route::get('/login', 'Auth\LoginController@auth')->name('login');
