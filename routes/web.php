@@ -15,7 +15,9 @@ Route::get('/', 'FigureController@index')->name('index');
 
 Route::get('/add', 'FigureController@add')->name('figure.addForm');
 
-Route::post('/save', 'FigureController@save')->name('figure.save');
+Route::post('/save/{figure?}', 'FigureController@save')
+    ->name('figure.save')
+    ->where('figure', '[0-9]+');
 
 Route::get('/statistics', 'FigureController@statistics')->name('statistics');
 

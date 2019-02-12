@@ -17,6 +17,7 @@ class CreateFiguresTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->json('data');
+            $table->string('image')->nullable();
         });
     }
 

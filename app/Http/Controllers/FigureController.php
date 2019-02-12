@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ViewErrorBag;
 
 class FigureController extends Controller
@@ -32,23 +33,26 @@ class FigureController extends Controller
         ]);
     }
 
-    public function save(SaveFigureRequest $request)
+    public function save(Figure $figure, SaveFigureRequest $request)
     {
         $data = $request->all();
-        if(isset($data['id'])){
-            $figure = Figure::find($data['id']);
-            $figure->data = $data['data'];
-            $figure->save();
+        $path = ($request->hasFile('image')) ? $request->image->store('public/images') : null;
+
+        if ($figure !== null) {
+            if ($path !== $figure->image) {
+                Storage::delete($figure->image);
+            } else {
+                $path = $figure->image;
+            }
             $actionMessage = $figure->type . $figure->id . ' figure has been edited!!!';
-        }
-        else {
+        } else {
             $figure = new Figure;
             $figure->type = $data['type'];
-            $figure->data = $data['data'];
-            $figure->save();
             $actionMessage = 'New ' . $figure->type . ' figure has been saved!!!';
         }
-
+        $figure->data = $data['data'];
+        $figure->image = $path;
+        $figure->save();
         return Redirect::route('index')
             ->with('actionMessage', $actionMessage);
     }

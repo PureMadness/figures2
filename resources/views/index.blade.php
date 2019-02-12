@@ -20,12 +20,13 @@
             {{ session('actionMessage') }}
         </div>
     @endif
-
+    {{ $figures->links() }}
     <table>
         <tr>
             <th>Type of figure</th>
             <th>Data</th>
             <th>Area</th>
+            <th>Image</th>
             <th>Delete?</th>
             <th></th>
         </tr>
@@ -34,6 +35,11 @@
                 <td>{{ $figure->type }}</td>
                 <td>{{ print_r($figure['data'], true) }}</td>
                 <td>{{ $figure->getArea() }}</td>
+                @if(isset($figure->image))
+                    <td><img class="image" src="{{ \Illuminate\Support\Facades\Storage::url($figure->image) }}" /></td>
+                @else
+                    <td></td>
+                @endif
                 <td>
                     <form action="{{  route('delete', $figure->id) }}" method="get">
                         <button type="submit">DEL</button>
@@ -49,5 +55,4 @@
             </tr>
         @endforeach
     </table>
-    {{ $figures->links() }}
 @endsection
