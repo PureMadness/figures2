@@ -15,7 +15,7 @@ class FigureController extends Controller
 {
     public function index()
     {
-        $figures = Figure::simplePaginate(20);
+        $figures = Figure::paginate(15);
 
         return view('index', ['figures' => $figures]);
     }

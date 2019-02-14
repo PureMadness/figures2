@@ -10,7 +10,7 @@
             '$id' => $figure->id,
             ])
             <p>
-            <input type="file" accept="image/*" name="image">
+            <input type="file" class="form-control-file" accept="image/*" name="image">
 
             @if($figure->image !== null)
                     Old image:<img class="image" src="{{ \Illuminate\Support\Facades\Storage::url($figure->image) }}"/>
@@ -23,7 +23,7 @@
             </p>
             <input type="hidden" name="type" value="{{ $figure->type }}">
             <div>
-                <button type="submit">
+                <button class="btn btn-primary" type="submit">
                     Edit
                 </button>
             </div>

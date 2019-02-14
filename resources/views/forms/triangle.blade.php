@@ -1,5 +1,5 @@
 <p>First Side:
-    <input type="text" name="data[side1]"
+    <input type="text" class="form-control" name="data[side1]"
            @isset($figure)
            value="{{ $figure->data['side1'] }}"
         @endisset
@@ -12,7 +12,7 @@
 @endif
 
 <p>Second Side:
-    <input type="text" name="data[side2]"
+    <input type="text" class="form-control" name="data[side2]"
            @isset($figure)
            value="{{ $figure->data['side2'] }}"
         @endisset/>
@@ -24,7 +24,7 @@
 @endif
 
 <p>Third Side:
-    <input type="text" name="data[side3]"
+    <input type="text" class="form-control" name="data[side3]"
            @isset($figure)
            value="{{ $figure->data['side3'] }}"
         @endisset/>

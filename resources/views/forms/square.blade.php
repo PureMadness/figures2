@@ -1,5 +1,5 @@
 <p>Side:
-    <input type="text" name="data[side]"
+    <input type="text" class="form-control" name="data[side]"
            @isset($figure)
            value="{{ $figure->data['side'] }}"
            @endisset

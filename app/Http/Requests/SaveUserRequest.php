@@ -24,7 +24,7 @@ class SaveUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|string|max:255',
+            'login' => 'required|string|max:255|unique:users,login',
             'password' => 'required|string|min:6|confirmed',
         ];
     }
