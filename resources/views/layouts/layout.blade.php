@@ -121,10 +121,13 @@
 <body>
 <nav class="menu">
     <ul>
-        <li ><a href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li><a href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li><a class="statistics" href="{{ route('statistics') }}">Statistics</a></li>
+        <li><a href="{{ route('register') }}">Registration</a></li>
+        <li><a href="{{ route('logout') }}">Log out</a></li>
     </ul>
 </nav>
+
     @yield('content')
 </body>
 </html>

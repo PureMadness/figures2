@@ -6,7 +6,6 @@ use App\Enums\FigureTypes;
 use App\Http\Requests\SaveFigureRequest;
 use App\Models\Figure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -82,7 +81,8 @@ class FigureController extends Controller
             ->with('actionMessage', $figure->type . ' figure was deleted!!!');
     }
 
-    public function edit(Figure $figure){
+    public function edit(Figure $figure)
+    {
         //$fig = Figure::get($figure);
         /** @var ViewErrorBag $errors */
 
