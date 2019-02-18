@@ -33,6 +33,7 @@ class SaveFigureRequest extends FormRequest
                     'data.side1' => 'required|numeric|min:0',
                     'data.side2' => 'required|numeric|min:0',
                     'data.side3' => 'required|numeric|min:0',
+                    'image' => 'nullable|image|max:1024',
                 ];
                 break;
             case FigureTypes::RECTANGLE:
@@ -42,18 +43,21 @@ class SaveFigureRequest extends FormRequest
                     'data.x2' => 'required|numeric',
                     'data.y1' => 'required|numeric',
                     'data.y2' => 'required|numeric',
+                    'image' => 'nullable|image|max:1024',
                 ];
                 break;
             case FigureTypes::SQUARE:
                 $rules = [
                     'data' => 'required|array',
                     'data.side' => 'required|numeric|min:0',
+                    'image' => 'nullable|image|max:1024',
                 ];
                 break;
             case FigureTypes::CIRCLE:
                 $rules = [
                     'data' => 'required|array',
                     'data.radius' => 'required|numeric|min:0',
+                    'image' => 'nullable|image|max:1024',
                 ];
                 break;
             default:

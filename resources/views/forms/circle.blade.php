@@ -1,5 +1,5 @@
 <p>Radius:
-<input type="text" name="data[radius]"
+<input type="text" class="form-control" name="data[radius]"
     @isset($figure)
         value="{{ $figure->data['radius'] }}"
     @endisset

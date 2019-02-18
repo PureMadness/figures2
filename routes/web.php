@@ -11,18 +11,34 @@
 |
 */
 
-Route::get('/', 'FigureController@index')->name('index');
+Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router  $router) {
 
-Route::get('/add', 'FigureController@add')->name('figure.addForm');
+    Route::get('/', 'FigureController@index')
+        ->name('index');
 
-Route::post('/save', 'FigureController@save')->name('figure.save');
+    Route::get('/add', 'FigureController@add')->name('figure.addForm');
 
-Route::get('/statistics', 'FigureController@statistics')->name('statistics');
+    Route::post('/save/{figure?}', 'FigureController@save')
+        ->name('figure.save')
+        ->where('figure', '[0-9]+');
 
-Route::get('/edit/{figure}', 'FigureController@edit')->name('figure.edit')
-    ->where('figure', '[0-9]+');
+    Route::get('/statistics', 'FigureController@statistics')->name('statistics');
 
-Route::get('/delete/{figure}', 'FigureController@delete')
-    ->name('delete')
-    ->where('figure', '[0-9]+');
+    Route::get('/edit/{figure}', 'FigureController@edit')->name('figure.edit')
+        ->where('figure', '[0-9]+');
 
+    Route::get('/delete/{figure}', 'FigureController@delete')
+        ->name('delete')
+        ->where('figure', '[0-9]+');
+});
+
+
+Route::get('/login', 'Auth\LoginController@auth')->name('login');
+
+Route::post('/login', 'Auth\LoginController@check')->name('check.login');
+
+Route::get('/register', 'Auth\RegisterController@register')->name('register');
+
+Route::post('/register', 'Auth\RegisterController@check')->name('check.register');
+
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

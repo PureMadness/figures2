@@ -1,5 +1,5 @@
 <p>X1:
-    <input type="text" name="data[x1]"
+    <input type="text" class="form-control" name="data[x1]"
            @isset($figure)
            value="{{ $figure->data['x1'] }}"
         @endisset/>
@@ -11,7 +11,7 @@
 @endif
 
 <p>X2:
-    <input type="text" name="data[x2]"
+    <input type="text" class="form-control" name="data[x2]"
            @isset($figure)
            value="{{ $figure->data['x2'] }}"
         @endisset/>
@@ -23,7 +23,7 @@
 @endif
 
 <p>Y1:
-    <input type="text" name="data[y1]"
+    <input type="text" class="form-control" name="data[y1]"
            @isset($figure)
            value="{{ $figure->data['y1'] }}"
         @endisset/>
@@ -35,7 +35,7 @@
 @endif
 
 <p>Y2:
-    <input type="text" name="data[y2]"
+    <input type="text" class="form-control" name="data[y2]"
            @isset($figure)
            value="{{ $figure->data['y2'] }}"
         @endisset
