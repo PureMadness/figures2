@@ -13,28 +13,40 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+    <style>
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
     <title>Test task</title>
 </head>
 <body>
-<div class="container-fluid">
     <nav class="navbar navbar-expand-lg">
         <ul class="nav">
-            <li class="nav-item nav-pills">
-                <a class="nav-link active" href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('statistics') }}">Statistics</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">Registration</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}">Log out</a>
-            </li>
+            @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Log in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">Registration</a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('statistics') }}">Statistics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}">Log out</a>
+                </li>
+            @endguest
         </ul>
     </nav>
 
     @yield('content')
-</div>
 </body>
 </html>

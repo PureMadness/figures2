@@ -1,13 +1,18 @@
-<p>Radius:
-<input type="text" class="form-control" name="data[radius]"
-    @isset($figure)
-        value="{{ $figure->data['radius'] }}"
-    @endisset
-/>
-</p>
-@if ($errors->get('data.radius'))
-    @foreach ($errors->get('data.radius') as $error)
-        {{ $error }}<br/>
-    @endforeach
-@endif
+<div class="row mb-2">
+    <input type="text" class="form-control col-md-2
+            @if ($errors->get('data.radius'))
+                is-invalid
+            @endif"
+            @isset($figure)
+                value="{{ $figure->data['radius'] }}"
+            @endisset
+           name="data[radius]" placeholder="Radius"/>
+    @if ($errors->get('data.radius'))
+        <div class="invalid-feedback">
+            @foreach ($errors->get('data.radius') as $error)
+                {{ $error }}<br/>
+            @endforeach
+        </div>
+    @endif
+</div>
 

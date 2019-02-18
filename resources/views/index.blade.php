@@ -1,19 +1,24 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="container-fluid">
-        <div class="align-items-center">
-            <p>Select figure you want to add:</p>
-            <form action="{{  route('figure.addForm') }}" method="get">
-                <select class="custom-select col-sm-2" name="type">
-                    <option value="circle">Circle</option>
-                    <option value="square">Square</option>
-                    <option value="triangle">Triangle</option>
-                    <option value="rectangle">Rectangle</option>
-                </select>
-                <button type="submit" class=" btn btn-primary">
-                    Add
-                </button>
-            </form>
+    <div class="container mb-2">
+        <div class="row justify-content-center">
+            <div class="col col-auto">
+                <p>Select figure you want to add:</p>
+            </div>
+            <div class="col">
+                <form action="{{  route('figure.addForm') }}" method="get">
+                    <select class="custom-select col-md-3" name="type">
+                        <option value="circle">Circle</option>
+                        <option value="square">Square</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="rectangle">Rectangle</option>
+                    </select>
+                    <button type="submit" class=" btn btn-primary">
+                        Add
+                    </button>
+
+                </form>
+            </div>
         </div>
     </div>
 
@@ -22,12 +27,12 @@
             {{ session('actionMessage') }}
         </div>
     @endif
-    <div class="container-fluid">
-        <div class="row justify-content-md-center">
+    <div class="container">
+        <div class="row justify-content-center">
             {{ $figures->links() }}
         </div>
-        <table class="table table-sm table-bordered table-hover">
-            <thead class="thead-dark">
+        <table class="table table-sm table-bordered table-striped">
+            <thead>
             <tr>
                 <th>Type of figure</th>
                 <th>Data</th>

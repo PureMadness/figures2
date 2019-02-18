@@ -2,25 +2,24 @@
 
 @section('content')
 
-    <form action="{{ route('check.login') }}" method="post">
+    <form class="form-signin" action="{{ route('check.login') }}" method="post">
         @csrf
-        <div class="form-group">
-            <div class="row">
-                <label for="login" class="col-sm-2">Login:</label>
-                <input type="text" class="form-control col-sm-2" name="login" placeholder="Login"/><br>
-            </div>
-            <div class="row">
-                <label for="password" class="col-sm-2">Password:</label>
-                <input type="password" class="form-control col-sm-2" name="password" placeholder="Password"/>
-            </div>
-            @if (session('errorMessage'))
+        <h3 class="mb-3 font-weight-normal">Please log in</h3>
+        <input type="text" class="form-control @if(session('errorMessage'))
+            is-invalid
+@endif" name="login" placeholder="Login"/>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" class="form-control @if(session('errorMessage'))
+            is-invalid
+@endif
+            " name="password" placeholder="Password"/>
+        @if (session('errorMessage'))
+            <div class="invalid-feedback">
                 {{ session('errorMessage') }}
-            @endif
-            <div class="row">
-                <button type="submit" class="btn btn-primary offset-sm-2">
-                    Log in
-                </button>
             </div>
-        </div>
+        @endif
+        <button type="submit" class="btn btn-primary btn-block">
+            Log in
+        </button>
     </form>
 @endsection
