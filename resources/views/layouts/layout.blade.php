@@ -27,7 +27,7 @@
     <title>Test task</title>
 </head>
 <body>
-<nav class="navbar nav-tabs bg-light mb-3">
+<nav class="navbar bg-light mb-3">
     <ul class="nav">
 
         @guest

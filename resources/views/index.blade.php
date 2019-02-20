@@ -31,7 +31,7 @@
         <div class="row justify-content-center">
             {{ $figures->links() }}
         </div>
-        <table class="table table-sm table-bordered table-striped">
+        <table class="table table-sm table-bordered table-striped table-hover">
             <thead>
             <tr>
                 <th>Type of figure</th>
@@ -56,14 +56,14 @@
                     @endif
                     <td>
                         <form action="{{  route('delete', $figure->id) }}" method="get">
-                            <button type="submit" class="btn btn-danger">DEL</button>
+                            <button type="submit" class="btn btn-danger btn-sm">DEL</button>
                         </form>
                     </td>
                     <td>
                         <form action="{{ route('figure.edit', [
                      'figure' => $figure->id,
                     ]) }}" method="get">
-                            <button type="submit" class="btn btn-warning">Edit</button>
+                            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
                         </form>
                     </td>
                 </tr>

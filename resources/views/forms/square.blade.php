@@ -1,10 +1,10 @@
-<div class="form-row align-items-center">
-    <h5>Side:</h5>
+<div class="form-group align-items-center">
+    <label for="side">Side</label>
     <input type="text" class="form-control  col-md-2
            @if ($errors->get('data.side'))
         is-invalid
 @endif"
-           name="data[side]"
+           name="data[side]" id="side"
            @isset($figure)
            value="{{ $figure->data['side'] }}"
            @endisset
