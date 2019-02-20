@@ -1,4 +1,5 @@
-<div class="row mb-2">
+<div class="form-row align-items-center">
+    <h5>Radius:</h5>
     <input type="text" class="form-control col-md-2
             @if ($errors->get('data.radius'))
                 is-invalid

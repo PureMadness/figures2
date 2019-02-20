@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="add">
+    <div class="container">
         <h3>Edit {{ $figure->type }} id = {{ $figure->id }}</h3>
         <form enctype="multipart/form-data" action="{{ route('figure.save', $figure->id)  }}" method="post">
             @csrf
@@ -9,7 +9,7 @@
             '$figure' => $figure,
             '$id' => $figure->id,
             ])
-            <p>
+            <div class="form-row">
             <input type="file" class="form-control-file" accept="image/*" name="image">
 
             @if($figure->image !== null)
@@ -20,9 +20,9 @@
                     {{ $error }}<br/>
                 @endforeach
             @endif
-            </p>
+            </div>
             <input type="hidden" name="type" value="{{ $figure->type }}">
-            <div>
+            <div class="form-row">
                 <button class="btn btn-primary" type="submit">
                     Edit
                 </button>

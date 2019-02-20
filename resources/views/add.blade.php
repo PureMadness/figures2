@@ -8,7 +8,7 @@
         <form enctype="multipart/form-data" action="{{ route('figure.save')  }}" method="post">
             @csrf
             @includeIf('forms.' . $type, ['$errors' => $errors])
-            <div class="form-row mb-2">
+            <div class="form-row mt-2 mb-2">
                 <input type="file" accept="image/*" name="image">
                 @if ($errors->get('image'))
                     @foreach ($errors->get('image') as $error)
@@ -17,6 +17,7 @@
                 @endif
             </div>
             <input type="hidden" name="type" value="{{ $type }}">
+
             <div class="form-row">
                 <button class="btn btn-primary" type="submit">
                     Add
