@@ -27,25 +27,25 @@
             <div class="form-row align-items-center">
                 <div class="col-auto mr-2">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="circleCheck" checked id="circle">
+                        <input class="form-check-input" type="checkbox" name="circleCheck" @isset($circleCheck) checked @endisset id="circle">
                         <label class="form-check-label" for="circle">
                             circle
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="squareCheck" checked id="square">
+                        <input class="form-check-input" type="checkbox" name="squareCheck" @isset($squareCheck) checked @endisset id="square">
                         <label class="form-check-label" for="square">
                             square
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="triangleCheck" checked id="triangle">
+                        <input class="form-check-input" type="checkbox" name="triangleCheck" @isset($triangleCheck) checked @endisset id="triangle">
                         <label class="form-check-label" for="triangle">
                             triangle
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="rectangleCheck" checked id="rectangle">
+                        <input class="form-check-input" type="checkbox" name="rectangleCheck" @isset($rectangleCheck) checked @endisset id="rectangle">
                         <label class="form-check-label" for="rectangle">
                             rectangle
                         </label>
@@ -63,13 +63,17 @@
                 </div>
                 <div class="col-auto">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="more" checked name="compare" id="more">
+                        <input class="form-check-input" type="radio" value="more" @if($compare === 'more')
+                        checked
+                               @endif name="compare" id="more">
                         <label class="form-check-label" for="more">
                             >
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="less"  name="compare" id="less">
+                        <input class="form-check-input" type="radio" value="less"@if($compare === 'less')
+                        checked
+                               @endif  name="compare" id="less">
                         <label class="form-check-label" for="less">
                             <
                         </label>

@@ -19,18 +19,51 @@ class FigureController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
+        //dd($data);
+        $figures = Auth::user()->figures;
+        if (!isset($data['circleCheck'])) {
+            $figures = $figures->reject(function ($figure, $key) {
+                return $figure->type === FigureTypes::CIRCLE;
+            });
+        }
+        if (!isset($data['squareCheck'])) {
+            $figures = $figures->reject(function ($figure, $key) {
+                return $figure->type === FigureTypes::SQUARE;
+            });
+        }
+        if (!isset($data['triangleCheck'])) {
+            $figures = $figures->reject(function ($figure, $key) {
+                return $figure->type === FigureTypes::TRIANGLE;
+            });
+        }
+        if (!isset($data['rectangleCheck'])) {
+            $figures = $figures->reject(function ($figure, $key) {
+                return $figure->type === FigureTypes::RECTANGLE;
+            });
+        }
 
         if (isset($data['compare']) && $data['compare'] === 'more') {
-            $figures = Auth::user()->figures->sortBy(function ($figure, $key) {
+            $figures = $figures->sortBy(function ($figure) {
+                return $figure->getArea();
+            });
+        } else {
+            $figures = $figures->sortByDesc(function ($figure) {
                 return $figure->getArea();
             });
         }
-        else {
-            $figures = Auth::user()->figures->sortByDesc(function ($figure, $key) {
-                return $figure->getArea();
-            });
+        if (!empty($data)) {
+            return view('index', [
+                'figures' => $figures,
+                'compare' => $data['compare'] ? $data['compare'] : null,
+                'circleCheck' => isset($data['circleCheck']) ? $data['circleCheck'] : null,
+                'squareCheck' => isset($data['squareCheck']) ? $data['squareCheck'] : null,
+                'triangleCheck' => isset($data['triangleCheck']) ? $data['triangleCheck'] : null,
+                'rectangleCheck' => isset($data['rectangleCheck']) ? $data['rectangleCheck'] : null,
+            ]);
         }
-        return view('index', ['figures' => $figures]);
+        return view('index', [
+            'figures' => $figures,
+        ]);
     }
 
     public function add(Request $request)
