@@ -16,9 +16,20 @@ use Illuminate\Support\ViewErrorBag;
 
 class FigureController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $figures = Auth::user()->figures()->paginate(20);
+        $data = $request->all();
+
+        if (isset($data['compare']) && $data['compare'] === 'more') {
+            $figures = Auth::user()->figures->sortBy(function ($figure, $key) {
+                return $figure->getArea();
+            });
+        }
+        else {
+            $figures = Auth::user()->figures->sortByDesc(function ($figure, $key) {
+                return $figure->getArea();
+            });
+        }
         return view('index', ['figures' => $figures]);
     }
 
@@ -79,7 +90,7 @@ class FigureController extends Controller
 
     public function delete(Figure $figure)
     {
-        if($figure->user_id !== Auth::id()) {
+        if ($figure->user_id !== Auth::id()) {
             return Redirect::route('index')
                 ->with('errorMessage', 'U can delete only your figures!!!');
         }
@@ -91,7 +102,7 @@ class FigureController extends Controller
 
     public function edit(Figure $figure)
     {
-        if(Gate::denies('can-user', $figure)) {
+        if (Gate::denies('can-user', $figure)) {
             return Redirect::route('index')
                 ->with('errorMessage', 'U can edit only your figures!!!');
         }

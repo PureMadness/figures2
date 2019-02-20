@@ -16,10 +16,72 @@
                     <button type="submit" class=" btn btn-primary">
                         Add
                     </button>
-
                 </form>
             </div>
         </div>
+    </div>
+
+    <div class="container mb-4">
+        <h3>Filters:</h3>
+        <form action="{{ route('index') }}" method="get">
+            <div class="form-row align-items-center">
+                <div class="col-auto mr-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="circleCheck" checked id="circle">
+                        <label class="form-check-label" for="circle">
+                            circle
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="squareCheck" checked id="square">
+                        <label class="form-check-label" for="square">
+                            square
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="triangleCheck" checked id="triangle">
+                        <label class="form-check-label" for="triangle">
+                            triangle
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rectangleCheck" checked id="rectangle">
+                        <label class="form-check-label" for="rectangle">
+                            rectangle
+                        </label>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="col-3">
+                        <label for="from">From</label>
+                        <input type="text" name="from" id="from" placeholder="from">
+                    </div>
+                    <div class="col-3">
+                        <label for="from">to</label>
+                        <input type="text" name="to" id="to" placeholder="to">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="more" checked name="compare" id="more">
+                        <label class="form-check-label" for="more">
+                            >
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="less"  name="compare" id="less">
+                        <label class="form-check-label" for="less">
+                            <
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Filter
+                </button>
+            </div>
+        </form>
     </div>
 
     @if (session('actionMessage'))
@@ -72,8 +134,6 @@
             @endforeach
             </tbody>
         </table>
-        <div class="row justify-content-center">
-            {{ $figures->links() }}
-        </div>
+
     </div>
 @endsection
