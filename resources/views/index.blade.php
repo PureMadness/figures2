@@ -54,27 +54,23 @@
                 <div class="col-auto">
                     <div class="col-3">
                         <label for="from">From</label>
-                        <input type="text" name="from" id="from" placeholder="from">
+                        <input type="text" name="from" id="from" value="@isset($from){{ $from }}@endisset" placeholder="from">
                     </div>
                     <div class="col-3">
                         <label for="from">to</label>
-                        <input type="text" name="to" id="to" placeholder="to">
+                        <input type="text" name="to" id="to" value="@isset($to){{ $to }}@endisset" placeholder="to">
                     </div>
                 </div>
                 <div class="col-auto">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="more" @if($compare === 'more')
-                        checked
-                               @endif name="compare" id="more">
+                        <input class="form-check-input" type="radio" value="asc" @if(isset($compare) && $compare === 'asc')) checked @endif name="compare" id="asc">
                         <label class="form-check-label" for="more">
                             >
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="less"@if($compare === 'less')
-                        checked
-                               @endif  name="compare" id="less">
-                        <label class="form-check-label" for="less">
+                        <input class="form-check-input" type="radio" value="desc" @if(isset($compare) && $compare === 'desc')) checked @endif name="compare" id="desc">
+                        <label class="form-check-label" for="desc">
                             <
                         </label>
                     </div>

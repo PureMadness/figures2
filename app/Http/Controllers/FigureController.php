@@ -42,7 +42,19 @@ class FigureController extends Controller
             });
         }
 
-        if (isset($data['compare']) && $data['compare'] === 'more') {
+        if(isset($data['from'])){
+            $from = $data['from'];
+            $figures = $figures->reject(function ($figure) use ($from) {
+                return $figure->getArea() < $from;
+            });
+        }
+        if(isset($data['to'])){
+            $to = $data['to'];
+            $figures = $figures->reject(function ($figure) use ($to) {
+                return $figure->getArea() > $to;
+            });
+        }
+        if (isset($data['compare']) && $data['compare'] === 'asc') {
             $figures = $figures->sortBy(function ($figure) {
                 return $figure->getArea();
             });
@@ -51,10 +63,13 @@ class FigureController extends Controller
                 return $figure->getArea();
             });
         }
+
         if (!empty($data)) {
             return view('index', [
                 'figures' => $figures,
-                'compare' => $data['compare'] ? $data['compare'] : null,
+                'compare' => isset($data['compare']) ? $data['compare'] : null,
+                'from' => isset($data['from']) ? $data['from'] : null,
+                'to' => isset($data['to']) ? $data['to'] : null,
                 'circleCheck' => isset($data['circleCheck']) ? $data['circleCheck'] : null,
                 'squareCheck' => isset($data['squareCheck']) ? $data['squareCheck'] : null,
                 'triangleCheck' => isset($data['triangleCheck']) ? $data['triangleCheck'] : null,
