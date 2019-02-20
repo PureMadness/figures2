@@ -17,4 +17,8 @@ class User extends Model implements AuthenticatableContract
     protected $fillable = [
         'login', 'password'
     ];
+
+    public function figures(){
+        return $this->hasMany('App\Models\Figure');
+    }
 }

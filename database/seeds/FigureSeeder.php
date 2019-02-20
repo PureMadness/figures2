@@ -12,7 +12,6 @@ class FigureSeeder extends Seeder
      */
     public function run()
     {
-        Figure::query()->truncate();
-        factory(\App\Models\Figure::class, 50)->create();
+
     }
 }
