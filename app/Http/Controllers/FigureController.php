@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Enums\FigureTypes;
 use App\Http\Requests\SaveFigureRequest;
 use App\Models\Figure;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -15,8 +17,7 @@ class FigureController extends Controller
 {
     public function index()
     {
-        $figures = Figure::paginate(15);
-
+        $figures = Auth::user()->figures()->paginate(20);
         return view('index', ['figures' => $figures]);
     }
 
@@ -37,7 +38,7 @@ class FigureController extends Controller
         $data = $request->all();
         $path = ($request->hasFile('image')) ? $request->image->store('public/images') : null;
 
-        if ($figure !== null) {
+        if ($figure->type !== null) {
             if ($path !== $figure->image && $path !== null) {
                 Storage::delete($figure->image);
             } else {
@@ -51,7 +52,9 @@ class FigureController extends Controller
         }
         $figure->data = $data['data'];
         $figure->image = $path;
-        $figure->save();
+
+        Auth::user()->figures()->save($figure);
+
         return Redirect::route('index')
             ->with('actionMessage', $actionMessage);
     }
@@ -75,15 +78,22 @@ class FigureController extends Controller
 
     public function delete(Figure $figure)
     {
-        $figure->delete();
+        if($figure->user_id !== Auth::id()) {
+            return Redirect::route('index')
+                ->with('errorMessage', 'U can delete only your figures!!!');
+        }
 
+        $figure->delete();
         return Redirect::route('index')
             ->with('actionMessage', $figure->type . ' figure was deleted!!!');
     }
 
     public function edit(Figure $figure)
     {
-        //$fig = Figure::get($figure);
+        if($figure->user_id !== Auth::id()) {
+            return Redirect::route('index')
+                ->with('errorMessage', 'U can edit only your figures!!!');
+        }
         /** @var ViewErrorBag $errors */
 
         $errors = Session::pull('errors', new ViewErrorBag());

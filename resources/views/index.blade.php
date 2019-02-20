@@ -27,10 +27,12 @@
             {{ session('actionMessage') }}
         </div>
     @endif
-    <div class="container">
-        <div class="row justify-content-center">
-            {{ $figures->links() }}
+    @if (session('errorMessage'))
+        <div class="alert alert-danger">
+            {{ session('errorMessage') }}
         </div>
+    @endif
+    <div class="container">
         <table class="table table-sm table-bordered table-striped table-hover">
             <thead>
             <tr>
@@ -70,5 +72,8 @@
             @endforeach
             </tbody>
         </table>
+        <div class="row justify-content-center">
+            {{ $figures->links() }}
+        </div>
     </div>
 @endsection
