@@ -25,6 +25,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('can-user', function ($user, $figure) {
+            if($user->id === $figure->user_id) {
+                return true;
+            }
+            return false;
+        });
     }
 }

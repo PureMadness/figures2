@@ -8,6 +8,7 @@ use App\Models\Figure;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -90,7 +91,7 @@ class FigureController extends Controller
 
     public function edit(Figure $figure)
     {
-        if($figure->user_id !== Auth::id()) {
+        if(Gate::denies('can-user', $figure)) {
             return Redirect::route('index')
                 ->with('errorMessage', 'U can edit only your figures!!!');
         }
