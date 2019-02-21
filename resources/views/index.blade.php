@@ -101,7 +101,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead class="thead-light">
             <tr>
-                <th>#</th>>
+                <th>#</th>
                 <th>Type of figure</th>
                 <th>Data</th>
                 <th>Area</th>

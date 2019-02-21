@@ -14,36 +14,36 @@
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <style>
-        .current{
+        .current {
             color: red;
         }
     </style>
     <title>Test task</title>
 </head>
 <body>
-<nav class="navbar bg-light mb-3">
-    <ul class="nav">
-
-        @guest
-            <li class="nav-item">
-                <a class="nav-link @if(\Illuminate\Support\Facades\Route::current()->action['as'] === 'login') current @endif" href="{{ route('login') }}">Log in</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link @if(\Illuminate\Support\Facades\Route::current()->action['as'] === 'register') current @endif" href="{{ route('register') }}">Registration</a>
-            </li>
-        @else
-            <li class="nav-item">
-                <a class="nav-link @if(\Illuminate\Support\Facades\Route::current()->action['as'] === 'index') current @endif" href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'statistics') current @endif" href="{{ route('statistics') }}">Statistics</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ route('logout') }}">Log out</a>
-            </li>
-        @endguest
-    </ul>
-</nav>
+<div class="row w-100">
+    <nav class="navbar bg-info">
+        <ul class="nav">
+            <div class="col">
+                <li class="nav-item">
+                    <a class="nav-link @if(\Illuminate\Support\Facades\Route::current()->action['as'] === 'index') current @endif"
+                       href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a>
+                </li>
+            </div>
+            <div class="col">
+                <li class="nav-item">
+                    <a class="nav-link text-white @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'statistics') current @endif"
+                       href="{{ route('statistics') }}">Statistics</a>
+                </li>
+            </div>
+            <div class="col">
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ route('logout') }}">Log out</a>
+                </li>
+            </div>
+        </ul>
+    </nav>
+</div>
 @yield('content')
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
