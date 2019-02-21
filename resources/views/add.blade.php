@@ -9,7 +9,7 @@
             @csrf
             @includeIf('forms.' . $type, ['$errors' => $errors])
             <div class="form-group mt-2 mb-2">
-                <input type="file" accept="image/*" name="image">
+                <input type="file" class="form-control-file" accept="image/*" name="image">
                 @if ($errors->get('image'))
                     @foreach ($errors->get('image') as $error)
                         {{ $error }}<br/>

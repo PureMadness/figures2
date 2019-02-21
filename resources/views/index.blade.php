@@ -1,9 +1,10 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="container mb-2">
+    <hr>
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col col-auto">
-                <p>Select figure you want to add:</p>
+                <h2>Select figure you want to add:</h2>
             </div>
             <div class="col">
                 <form action="{{  route('figure.addForm') }}" method="get">
@@ -20,9 +21,9 @@
             </div>
         </div>
     </div>
-
+    <hr>
     <div class="container mb-4">
-        <h3>Filters:</h3>
+        <h2>Filters:</h2>
         <form action="{{ route('index') }}" method="get">
             <div class="form-row align-items-center">
                 <div class="col-auto mr-2">
@@ -77,13 +78,14 @@
                 </div>
             </div>
             <div class="form-row">
-                <button type="submit" class="btn btn-primary btn-lg">
+                <button type="submit" class="btn btn-primary">
                     Filter
                 </button>
             </div>
         </form>
     </div>
-
+    <hr>
+    <div class="container text-center">
     @if (session('actionMessage'))
         <div class="alert alert-info">
             {{ session('actionMessage') }}
@@ -94,21 +96,24 @@
             {{ session('errorMessage') }}
         </div>
     @endif
-    <div class="container">
-        <table class="table table-sm table-bordered table-striped table-hover">
-            <thead>
+    </div>
+    <div class="container table-responsive text-center">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-light">
             <tr>
+                <th>#</th>>
                 <th>Type of figure</th>
                 <th>Data</th>
                 <th>Area</th>
                 <th>Image</th>
-                <th>Delete?</th>
-                <th></th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             @foreach($figures as $figure)
-                <tr name="id" value="{{ $figure->id }}">
+                <tr>
+                    <td>{{ $figure->id }}</td>
                     <td>{{ $figure->type }}</td>
                     <td>{{ print_r($figure['data'], true) }}</td>
                     <td>{{ $figure->getArea() }}</td>
@@ -119,15 +124,15 @@
                         <td></td>
                     @endif
                     <td>
-                        <form action="{{  route('delete', $figure->id) }}" method="get">
-                            <button type="submit" class="btn btn-danger btn-sm">DEL</button>
-                        </form>
-                    </td>
-                    <td>
                         <form action="{{ route('figure.edit', [
                      'figure' => $figure->id,
                     ]) }}" method="get">
-                            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                            <button type="submit" class="btn btn-primary btn-sm">edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{  route('delete', $figure->id) }}" method="get">
+                            <button type="submit" class="btn  btn-danger btn-sm">del</button>
                         </form>
                     </td>
                 </tr>
