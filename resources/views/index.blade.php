@@ -1,20 +1,17 @@
 @extends('layouts.layout')
 @section('content')
-    <hr>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col col-auto">
-                <h2>Select figure you want to add:</h2>
-            </div>
             <div class="col">
+                <label class="" for="type">Select figure you want to add:</label>
                 <form action="{{  route('figure.addForm') }}" method="get">
-                    <select class="custom-select col-md-3" name="type">
+                    <select class="custom-select col-6 col-md-3" name="type" id="type">
                         <option value="circle">Circle</option>
                         <option value="square">Square</option>
                         <option value="triangle">Triangle</option>
                         <option value="rectangle">Rectangle</option>
                     </select>
-                    <button type="submit" class=" btn btn-primary">
+                    <button type="submit" class="col-auto btn btn-primary ">
                         Add
                     </button>
                 </form>
@@ -23,10 +20,10 @@
     </div>
     <hr>
     <div class="container mb-4">
-        <h2>Filters:</h2>
         <form action="{{ route('index') }}" method="get">
-            <div class="form-row align-items-center">
-                <div class="col-auto mr-2">
+            <div class="form-row align-items-start">
+                <div class="col-12 col-md-4">
+                    <h3>Type of figure</h3>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="circleCheck" @isset($circleCheck) checked @endisset id="circle">
                         <label class="form-check-label" for="circle">
@@ -52,32 +49,34 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-auto">
-                    <div class="col-3">
+                <div class="col-12 col-md-4">
+                    <h3>Area values:</h3>
+                    <div class="col">
                         <label for="from">From</label>
-                        <input type="text" name="from" id="from" value="@isset($from){{ $from }}@endisset" placeholder="from">
+                        <input type="text" class="form-control" name="from" id="from" value="@isset($from){{ $from }}@endisset" placeholder="from">
                     </div>
-                    <div class="col-3">
+                    <div class="col">
                         <label for="from">to</label>
-                        <input type="text" name="to" id="to" value="@isset($to){{ $to }}@endisset" placeholder="to">
+                        <input type="text" class="form-control" name="to" id="to" value="@isset($to){{ $to }}@endisset" placeholder="to">
                     </div>
                 </div>
-                <div class="col-auto">
+                <div class="col-12 col-md-4">
+                    <h3>Sort by area:</h3>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="asc" @if(isset($compare) && $compare === 'asc')) checked @endif name="compare" id="asc">
                         <label class="form-check-label" for="more">
-                            >
+                            ascending
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="desc" @if(isset($compare) && $compare === 'desc')) checked @endif name="compare" id="desc">
                         <label class="form-check-label" for="desc">
-                            <
+                            descending
                         </label>
                     </div>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="form-row mt-2">
                 <button type="submit" class="btn btn-primary">
                     Filter
                 </button>

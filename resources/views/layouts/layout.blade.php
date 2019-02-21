@@ -13,34 +13,24 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <style>
-        .current {
-            color: red;
-        }
-    </style>
     <title>Test task</title>
 </head>
 <body>
-<div class="row w-100">
-    <nav class="navbar bg-info">
-        <ul class="nav">
-            <div class="col">
-                <li class="nav-item">
-                    <a class="nav-link @if(\Illuminate\Support\Facades\Route::current()->action['as'] === 'index') current @endif"
-                       href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a>
-                </li>
-            </div>
-            <div class="col">
-                <li class="nav-item">
-                    <a class="nav-link text-white @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'statistics') current @endif"
-                       href="{{ route('statistics') }}">Statistics</a>
-                </li>
-            </div>
-            <div class="col">
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('logout') }}">Log out</a>
-                </li>
-            </div>
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <span class="h5 navbar-text text-info mx-5">MyFigures</span>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item mx-5">
+                <a class="h5 nav-link @if(\Illuminate\Support\Facades\Route::current()->action['as'] === 'index') text-danger @endif"
+                   href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="h5 nav-link @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'statistics') text-danger @endif"
+                   href="{{ route('statistics') }}">Statistics</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav mx-5">
+            <a class="h5 nav-link" href="{{ route('logout') }}">Log out</a>
         </ul>
     </nav>
 </div>
