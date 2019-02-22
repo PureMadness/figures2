@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="container">
+    <div class="container mt-2">
         <div class="row justify-content-center">
             <div class="col">
                 <label class="" for="type">Select figure you want to add:</label>
@@ -31,20 +31,20 @@
                         <option value="rectangle" @isset($rectangleCheck) selected @endisset>Rectangles</option>
                     </select>
                 </div>
-                <div class="form-group row col-12 col-md-4">
-                    <label for="from" class="col col-3 col-form-label">Area</label>
-                        <div class="col-9 row">
-                            <input type="text" class="col col-9 form-control" name="from" id="from"
+                <div class="form-row col-12 col-md-4">
+                    <label for="from" class="col-auto col-form-label">Area</label>
+                        <div class="col-3">
+                            <input type="text" class="col form-control" name="from" id="from"
                                    value="@isset($from){{ $from }}@endisset" placeholder="from">
                         </div>
                         <div class="col-auto p-0"><h3>-</h3></div>
-                        <div class="col-">
+                        <div class="col-3">
                             <input type="text" class="form-control" name="to" id="to"
                                    value="@isset($to){{ $to }}@endisset" placeholder="to">
 
                     </div>
                 </div>
-                <div class="form-group align-items-center">
+                <div class="form-group col-12 col-md-4">
                     <label for="compare" class="col-form-label">Sort by area:</label>
                     <select class="col-8 custom-select" name="compare" id="compare" size="2">
                         <option value="asc" @if(isset($compare) && $compare == 'asc') selected @endif>Ascending</option>
