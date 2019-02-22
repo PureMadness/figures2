@@ -16,7 +16,7 @@
     <title>Test task</title>
 </head>
 <body>
-<div class="container-fluid p-0">
+<div class="container-fluid p-0 mb-2">
     <nav class="navbar navbar-expand-sm bg-light">
         <span class="h5 navbar-text text-info mx-5">MyFigures</span>
         <ul class="navbar-nav mr-auto">

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\FigureTypes;
+use http\Exception\BadMethodCallException;
 use Illuminate\Database\Eloquent\Model;
 
 class Figure extends Model
@@ -21,31 +22,31 @@ class Figure extends Model
         'data' => 'array'
     ];
 
-    public function getArea(): float
+    public function setArea(): void
     {
         switch ($this['type']) {
             case FigureTypes::CIRCLE:
                 $radius = $this->data['radius'];
-                return pi() * $radius ** 2;
+                $this->area = pi() * $radius ** 2;
                 break;
             case FigureTypes::SQUARE:
                 $side = $this->data['side'];
-                return $side ** 2;
+                $this->area = $side ** 2;
                 break;
             case FigureTypes::RECTANGLE:
                 $length = $this->data['x1'] - $this->data['x2'];
                 $width = $this->data['y1'] - $this->data['y2'];
-                return abs($length * $width);
+                $this->area = abs($length * $width);
                 break;
             case FigureTypes::TRIANGLE:
                 $side1 = $this->data['side1'];
                 $side2 = $this->data['side2'];
                 $side3 = $this->data['side3'];
                 $halfPerimeter = ($side1 + $side2 + $side3) / 2.0;
-                return sqrt($halfPerimeter * ($halfPerimeter - $side1) * ($halfPerimeter - $side2) * ($halfPerimeter - $side3));
+                $this->area = sqrt($halfPerimeter * ($halfPerimeter - $side1) * ($halfPerimeter - $side2) * ($halfPerimeter - $side3));
                 break;
             default:
-                return 'Nan';
+                dd('Warning!!!');
                 break;
         }
     }

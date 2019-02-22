@@ -18,6 +18,7 @@ class CreateFiguresTable extends Migration
             $table->string('type');
             $table->json('data');
             $table->string('image')->nullable();
+            $table->float('area');
             $table->integer('user_id')->unsigned()->index();
         });
     }

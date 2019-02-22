@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="container mt-2">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col">
                 <label class="" for="type">Select figure you want to add:</label>
@@ -33,20 +33,20 @@
                 </div>
                 <div class="form-row col-12 col-md-4">
                     <label for="from" class="col-auto col-form-label">Area</label>
-                        <div class="col-3">
-                            <input type="text" class="col form-control" name="from" id="from"
-                                   value="@isset($from){{ $from }}@endisset" placeholder="from">
-                        </div>
-                        <div class="col-auto p-0"><h3>-</h3></div>
-                        <div class="col-3">
-                            <input type="text" class="form-control" name="to" id="to"
-                                   value="@isset($to){{ $to }}@endisset" placeholder="to">
+                    <div class="col-3">
+                        <input type="text" class="col form-control" name="from" id="from"
+                               value="@isset($from){{ $from }}@endisset" placeholder="from">
+                    </div>
+                    <div class="col-auto p-0"><h3>-</h3></div>
+                    <div class="col-3">
+                        <input type="text" class="form-control" name="to" id="to"
+                               value="@isset($to){{ $to }}@endisset" placeholder="to">
 
                     </div>
                 </div>
                 <div class="form-group col-12 col-md-4">
-                    <label for="compare" class="col-form-label">Sort by area:</label>
-                    <select class="col-8 custom-select" name="compare" id="compare" size="2">
+                    <label for="sort" class="col-form-label">Sort by area:</label>
+                    <select class="col-8 custom-select" name="sort" id="sort" size="2">
                         <option value="asc" @if(isset($compare) && $compare == 'asc') selected @endif>Ascending</option>
                         <option value="desc" @if(isset($compare) && $compare == 'desc') selected @endif>Descending
                         </option>
@@ -91,7 +91,7 @@
                         <td>{{ $figure->id }}</td>
                         <td>{{ $figure->type }}</td>
                         <td>{{ print_r($figure['data'], true) }}</td>
-                        <td>{{ $figure->getArea() }}</td>
+                        <td>{{ $figure->area }}</td>
                         @if(isset($figure->image))
                             <td><img class="image"
                                      src="{{ \Illuminate\Support\Facades\Storage::url($figure->image) }}"/>
@@ -116,6 +116,12 @@
             @endisset
             </tbody>
         </table>
-
+        @isset($figures)
+            <div class="row justify-content-center">
+                <div>
+                    {{ $figures->links() }}
+                </div>
+            </div>
+        @endisset
     </div>
 @endsection

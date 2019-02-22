@@ -26,56 +26,52 @@ class FigureController extends Controller
                 'figures' => null,
             ]);
         }
-        $figures = new \Illuminate\Database\Eloquent\Collection;
-        //dd($request->showTypes);
-        //dd(in_array('circle', $request->showTypes));
-        $showTypes = $request->showTypes;
+        //dd($request);
         $params = [];
+        $showTypes = $request->showTypes;
+        $userFigures = Auth::user()->figures();
+        if (isset($request->from)) {
+            $from = $request->from;
+            $userFigures = $userFigures->where('area', '>', $from);
+            $params = array_merge($params, ['from' => $from]);
+        }
+        if (isset($request->to)) {
+            $to = $request->to;
+            $userFigures = $userFigures->where('area', '<', $to);
+            $params = array_merge($params, ['to' => $to]);
+        }
+
+        if ($showTypes !== null) {
+            $userFigures->whereIn('type', $showTypes);
+        }
+
         if ($showTypes !== null) {
             if (in_array('circle', $showTypes)) {
-                $figures = $figures->merge(Auth::user()->figures()->where('type', '=', 'circle')->get());
                 $params = array_merge($params, ['circleCheck' => 'on']);
             }
             if (in_array('square', $showTypes)) {
-                $figures = $figures->merge(Auth::user()->figures()->where('type', '=', 'square')->get());
                 $params = array_merge($params, ['squareCheck' => 'on']);
             }
             if (in_array('triangle', $showTypes)) {
-                $figures = $figures->merge(Auth::user()->figures()->where('type', '=', 'triangle')->get());
                 $params = array_merge($params, ['triangleCheck' => 'on']);
             }
             if (in_array('rectangle', $showTypes)) {
-                $figures = $figures->merge(Auth::user()->figures()->where('type', '=', 'rectangle')->get());
                 $params = array_merge($params, ['rectangleCheck' => 'on']);
             }
         }
 
-        if (isset($request->from)) {
-            $from = $request->from;
-            $figures = $figures->reject(function ($figure) use ($from) {
-                return $figure->getArea() < $from;
-            });
-            $params = array_merge($params, ['from' => $request->from]);
-        }
-        if (isset($request->to)) {
-            $to = $request->to;
-            $figures = $figures->reject(function ($figure) use ($to) {
-                return $figure->getArea() > $to;
-            });
-            $params = array_merge($params, ['to' => $request->to]);
-        }
-        if (isset($request->compare) && $request->compare === 'asc') {
-            $figures = $figures->sortBy(function ($figure) {
-                return $figure->getArea();
-            });
-        } elseif (isset($request->compare) && $request->compare === 'desc') {
-            $figures = $figures->sortByDesc(function ($figure) {
-                return $figure->getArea();
-            });
+        if (isset($request->sort) && $request->sort === 'asc') {
+            $userFigures->orderBy('area');
+        } elseif (isset($request->sort) && $request->sort === 'desc') {
+            $userFigures->orderBy('area', 'desc');
         }
 
-        $figures = ['figures' => $figures];
-        $params = array_merge($params, $figures, ['compare' => isset($request->compare) ? $request->compare : null]);
+        $result = $userFigures->paginate(20);
+
+        //dd($request->sort);
+        $figures = ['figures' => $result];
+        $params = array_merge($params, $figures, ['sort' => isset($request->sort) ? $request->sort : null]);
+        //dd($params);
         return view('index', $params);
     }
 
@@ -109,6 +105,7 @@ class FigureController extends Controller
             $actionMessage = 'New ' . $figure->type . ' figure has been saved!!!';
         }
         $figure->data = $data['data'];
+        $figure->setArea();
         $figure->image = $path;
 
         Auth::user()->figures()->save($figure);
