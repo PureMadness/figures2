@@ -21,42 +21,40 @@
     <hr>
     <div class="container mb-4">
         <form action="{{ route('index') }}" method="get">
-            <div class="form-row align-items-start">
+            <div class="form-row align-items-center">
                 <div class="form-group col-12 col-md-4">
-                    <h3>Type of figure</h3>
-                    <select class="custom-select" name="showTypes[]" multiple>
+                    <label for="showTypes" class="col-form-label col-auto">Type of figure</label>
+                    <select class="custom-select col-6" name="showTypes[]" id="showTypes" multiple>
                         <option value="circle" @isset($circleCheck) selected @endisset>Circles</option>
                         <option value="square" @isset($squareCheck) selected @endisset>Squares</option>
                         <option value="triangle" @isset($triangleCheck) selected @endisset>Triangles</option>
                         <option value="rectangle" @isset($rectangleCheck) selected @endisset>Rectangles</option>
                     </select>
                 </div>
-                <div class="form-group col-12 col-md-4">
-                    <h3 class="text-center">Area values:</h3>
-                    <div class="row align-items-center m-auto">
-                        <div class="col offset-1 col-5">
-                            <input type="text" class="form-control" name="from" id="from"
+                <div class="form-group row col-12 col-md-4">
+                    <label for="from" class="col col-3 col-form-label">Area</label>
+                        <div class="col-9 row">
+                            <input type="text" class="col col-9 form-control" name="from" id="from"
                                    value="@isset($from){{ $from }}@endisset" placeholder="from">
                         </div>
-                        <div class="col col-auto p-0"><h3>-</h3></div>
-                        <div class="col col-5">
+                        <div class="col-auto p-0"><h3>-</h3></div>
+                        <div class="col-">
                             <input type="text" class="form-control" name="to" id="to"
                                    value="@isset($to){{ $to }}@endisset" placeholder="to">
-                        </div>
+
                     </div>
                 </div>
-                <div class="form-group col-12 col-md-4">
-                    <h3>Sort by area:</h3>
-                    <select class="custom-select" name="compare" size="2">
+                <div class="form-group align-items-center">
+                    <label for="compare" class="col-form-label">Sort by area:</label>
+                    <select class="col-8 custom-select" name="compare" id="compare" size="2">
                         <option value="asc" @if(isset($compare) && $compare == 'asc') selected @endif>Ascending</option>
-                        <option value="desc" @if(isset($compare) && $compare == 'desc') selected @endif>Descending</option>
+                        <option value="desc" @if(isset($compare) && $compare == 'desc') selected @endif>Descending
+                        </option>
                     </select>
+                    <button type="submit" class="btn btn-primary mt-2">
+                        Filter
+                    </button>
                 </div>
-            </div>
-            <div class="form-group mt-2">
-                <button type="submit" class="btn btn-primary">
-                    Filter
-                </button>
             </div>
         </form>
     </div>

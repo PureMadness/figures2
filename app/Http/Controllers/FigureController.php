@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\FigureTypes;
 use App\Http\Requests\SaveFigureRequest;
-use App\Mail\OrderShipped;
+use App\Mail\RestoreLinkShipped;
 use App\Models\Figure;
 use App\Models\User;
 use Illuminate\Http\Request;

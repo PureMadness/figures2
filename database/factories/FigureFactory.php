@@ -32,10 +32,10 @@ $factory->define(App\Models\Figure::class, function (Faker\Generator $faker) {
 
         case (FigureTypes::RECTANGLE):
             $data = [
-                'x1' => $faker->numberBetween(-50, 50),
-                'y1' => $faker->numberBetween(-50, 50),
-                'x2' => $faker->numberBetween(-50, 50),
-                'y2' => $faker->numberBetween(-50, 50),
+                'x1' => $faker->numberBetween(-100, 100),
+                'y1' => $faker->numberBetween(-100, 100),
+                'x2' => $faker->numberBetween(-100, 100),
+                'y2' => $faker->numberBetween(-100, 100),
             ];
             break;
 
