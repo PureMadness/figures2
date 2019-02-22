@@ -25,6 +25,7 @@ class SaveUserRequest extends FormRequest
     {
         return [
             'login' => 'required|string|max:255|unique:users,login',
+            'email' => 'required|string|max:255|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
         ];
     }

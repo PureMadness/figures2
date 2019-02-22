@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm bg-light">
         <span class="h5 navbar-text text-info mx-5">MyFigures</span>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item mx-5">
@@ -30,7 +30,7 @@
             </li>
         </ul>
         <ul class="navbar-nav mx-5">
-            <a class="h5 nav-link" href="{{ route('logout') }}">Log out</a>
+            <a class="h5 nav-link" href="{{ route('logout') }}">Log out <i class="fas fa-sign-out-alt"></i></a>
         </ul>
     </nav>
 </div>

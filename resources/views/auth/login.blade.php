@@ -22,7 +22,7 @@
             @endif
         </div>
         <div class="form-group mt-0">
-            <a href="text">Forgot password?</a>
+            <a href=" {{ route('restore') }}" >Forgot password?</a>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-lg btn-primary btn-block">
