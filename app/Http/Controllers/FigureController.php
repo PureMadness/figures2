@@ -120,8 +120,8 @@ class FigureController extends Controller
         $allArea = 0;
 
         $figures->each(function (Figure $figure) use (&$areas, &$allArea): void {
-            $areas[$figure->type] += $figure->getArea();
-            $allArea += $figure->getArea();
+            $areas[$figure->type] += $figure->area;
+            $allArea += $figure->area;
         });
 
         return view('statistics', [
