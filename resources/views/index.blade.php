@@ -47,8 +47,8 @@
                 <div class="form-group col-12 col-md-4">
                     <label for="sort" class="col-form-label">Sort by area:</label>
                     <select class="col-8 custom-select" name="sort" id="sort" size="2">
-                        <option value="asc" @if(isset($compare) && $compare == 'asc') selected @endif>Ascending</option>
-                        <option value="desc" @if(isset($compare) && $compare == 'desc') selected @endif>Descending
+                        <option value="asc" @if(isset($sort) && $sort == 'asc') selected @endif>Ascending</option>
+                        <option value="desc" @if(isset($sort) && $sort == 'desc') selected @endif>Descending
                         </option>
                     </select>
                     <button type="submit" class="btn btn-primary mt-2">
@@ -119,7 +119,17 @@
         @isset($figures)
             <div class="row justify-content-center">
                 <div>
-                    {{ $figures->links() }}
+                    {{ $figures->appends([
+                    'showTypes' => [
+                        isset($circleCheck) ? 'circle' : null,
+                        isset($squareCheck) ? 'square' : null,
+                        isset($triangleCheck) ? 'triangle' : null,
+                        isset($rectangleCheck) ? 'rectangle' : null
+                        ],
+                    'from' => isset($from) ? $from : null, 'to' => isset($to) ? $to : null,
+                    'sort' => isset($sort) && $sort === 'asc' ? 'asc' : null,
+                    'sort' => isset($sort) && $sort === 'desc' ? 'desc' : null,
+                    ])->links() }}
                 </div>
             </div>
         @endisset

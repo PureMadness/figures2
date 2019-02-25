@@ -20,15 +20,14 @@ class FigureController extends Controller
 {
     public function index(Request $request)
     {
-        //dd($request->all() === []);
         if ($request->all() === []) {
             return view('index', [
                 'figures' => null,
             ]);
         }
-        //dd($request);
         $params = [];
         $showTypes = $request->showTypes;
+        //dd($showTypes);
         $userFigures = Auth::user()->figures();
         if (isset($request->from)) {
             $from = $request->from;
@@ -66,7 +65,7 @@ class FigureController extends Controller
             $userFigures->orderBy('area', 'desc');
         }
 
-        $result = $userFigures->paginate(20);
+        $result = $userFigures->paginate(15);
 
         //dd($request->sort);
         $figures = ['figures' => $result];
