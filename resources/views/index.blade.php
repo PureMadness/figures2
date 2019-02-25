@@ -127,8 +127,7 @@
                         isset($rectangleCheck) ? 'rectangle' : null
                         ],
                     'from' => isset($from) ? $from : null, 'to' => isset($to) ? $to : null,
-                    'sort' => isset($sort) && $sort === 'asc' ? 'asc' : null,
-                    'sort' => isset($sort) && $sort === 'desc' ? 'desc' : null,
+                    'sort' => (isset($sort) && $sort === 'asc') ? 'asc' : (isset($sort) && $sort === 'desc' ? 'desc' : null),
                     ])->links() }}
                 </div>
             </div>
