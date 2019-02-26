@@ -27,16 +27,15 @@ class FigureController extends Controller
         }
         $params = [];
         $showTypes = $request->showTypes;
-        //dd($showTypes);
         $userFigures = Auth::user()->figures();
         if (isset($request->from)) {
             $from = $request->from;
-            $userFigures = $userFigures->where('area', '>', $from);
+            $userFigures = $userFigures->where('area', '>=', $from);
             $params = array_merge($params, ['from' => $from]);
         }
         if (isset($request->to)) {
             $to = $request->to;
-            $userFigures = $userFigures->where('area', '<', $to);
+            $userFigures = $userFigures->where('area', '<=', $to);
             $params = array_merge($params, ['to' => $to]);
         }
 
@@ -66,11 +65,8 @@ class FigureController extends Controller
         }
 
         $result = $userFigures->paginate(15);
-
-        //dd($request->sort);
         $figures = ['figures' => $result];
         $params = array_merge($params, $figures, ['sort' => isset($request->sort) ? $request->sort : null]);
-        //dd($params);
         return view('index', $params);
     }
 
@@ -115,7 +111,7 @@ class FigureController extends Controller
 
     public function statistics()
     {
-        $figures = Figure::all();
+        $figures = Auth::user()->figures();
         $areas = array_fill_keys(FigureTypes::getAll(), 0);
         $allArea = 0;
 
@@ -132,6 +128,7 @@ class FigureController extends Controller
 
     public function delete(Figure $figure)
     {
+        dd(session());
         if ($figure->user_id !== Auth::id()) {
             return Redirect::route('index')
                 ->with('errorMessage', 'U can delete only your figures!!!');

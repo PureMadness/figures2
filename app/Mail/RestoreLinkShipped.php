@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\URL;
 
 class RestoreLinkShipped extends Mailable
 {
@@ -32,6 +33,6 @@ class RestoreLinkShipped extends Mailable
     public function build()
     {
         return $this->from('example@example.com')
-            ->markdown('mails.shipped', ['url' => route('change.password', $this->user['id'])]);
+            ->markdown('mails.shipped', ['url' => URL::temporarySignedRoute('change.password', now()->addMinutes(15), ['user' => $this->user['id'],])]);
     }
 }

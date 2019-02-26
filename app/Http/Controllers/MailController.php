@@ -33,8 +33,11 @@ class MailController extends Controller
         }
     }
 
-    public function change(User $user)
+    public function change(User $user, Request $request)
     {
+        if (!$request->hasValidSignature()) {
+            abort(401);
+        }
         $errors = Session::pull('errors', new ViewErrorBag());
 
         return view('password/changePassword', [

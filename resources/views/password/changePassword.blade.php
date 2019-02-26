@@ -5,7 +5,7 @@
     <form class="form-register m-auto" action="{{ route('check.password', $user) }}" method="post">
         @csrf
         <h1 class="text-center font-weight-normal">Enter new password:</h1>
-            <div class="form-group row">
+            <div class="form-group row align-items-center">
                 <div class="col-3">
                     <label for="password" class="col-input-label">Password</label>
                 </div>
@@ -23,7 +23,7 @@
                 @endif
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row align-items-center">
                 <div class="col-3">
                     <label for="confirmation" class="col-input-label">Retype</label>
                 </div>
