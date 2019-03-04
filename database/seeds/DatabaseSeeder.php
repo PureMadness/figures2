@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
         $user->login = 'user';
         $user->password = bcrypt('secret');
         $user->email = 'my.pure.mail@bk.ru';
-        $user->remember_token = 'abcdefghasd';
+        $user->role = 1;
+        $user->blocked = 0;
         $user->save();
         for ($i = 0; $i < 70; $i++) {
             $user->figures()->save(factory(Figure::class)->make());

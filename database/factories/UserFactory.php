@@ -18,6 +18,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'login' => $faker->userName,
         'password' => bcrypt('secret'),
         'email' => 'my.pure.mail@bk.ru',
-        'remember_token' => str_random(10),
+        'role' => 0,
+        'blocked' => $faker->boolean,
     ];
 });
