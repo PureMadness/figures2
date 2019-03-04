@@ -3,6 +3,11 @@
 @section('content')
 
     <div class="container">
+        @if (session('actionMessage'))
+            <div class="alert alert-info">
+                {{ session('actionMessage') }}
+            </div>
+        @endif
         <div>
             <table class="table table-bordered table-striped table-hover">
                 <thead class="thead-light">
@@ -11,6 +16,7 @@
                     <th>Login</th>
                     <th>Role</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -18,8 +24,17 @@
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->login }}</td>
-                        <td></td>
-                        <td></td>
+                        <td>@if($user->role === 1) Admin @else User @endif</td>
+                        @if($user->blocked)
+                            <td class="text-danger">Blocked</td>
+                        @else
+                            <td class="text-info">Not Blocked</td>
+                        @endif
+                        <td>
+                            <form action="{{ route('user.edit', ['user' => $user->id,]) }}" method="get">
+                                <button type="submit" class="btn btn-primary btn-sm">edit</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
