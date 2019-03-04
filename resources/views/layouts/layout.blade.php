@@ -28,10 +28,12 @@
                 <a class="h5 nav-link @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'statistics') text-danger @endif"
                    href="{{ route('statistics') }}">Statistics</a>
             </li>
-            <li class="nav-item">
-                <a class="h5 nav-link @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'users') text-danger @endif"
-                   href="{{ route('users') }}">Users</a>
-            </li>
+            @if(\Illuminate\Support\Facades\Auth::user()->role)
+                <li class="nav-item">
+                    <a class="h5 nav-link @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'users') text-danger @endif"
+                       href="{{ route('users') }}">Users</a>
+                </li>
+            @endif
         </ul>
         <ul class="navbar-nav mx-5">
             <a class="h5 nav-link" href="{{ route('logout') }}">Log out <i class="fas fa-sign-out-alt"></i></a>

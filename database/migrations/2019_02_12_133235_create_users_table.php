@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email',255);
             $table->tinyInteger('role');
             $table->boolean('blocked');
+            $table->string('remember_token', 255);
         });
     }
 

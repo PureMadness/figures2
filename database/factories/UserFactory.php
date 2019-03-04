@@ -20,5 +20,6 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'email' => 'my.pure.mail@bk.ru',
         'role' => 0,
         'blocked' => $faker->boolean,
+        'remember_token' => 'aaaaaaaaaa',
     ];
 });

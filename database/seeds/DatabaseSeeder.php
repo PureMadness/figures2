@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $user->email = 'my.pure.mail@bk.ru';
         $user->role = 1;
         $user->blocked = 0;
+        $user->remember_token = 'aaaaaaaaaa';
         $user->save();
         for ($i = 0; $i < 70; $i++) {
             $user->figures()->save(factory(Figure::class)->make());
