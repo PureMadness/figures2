@@ -24,9 +24,13 @@
                 <a class="h5 nav-link @if(\Illuminate\Support\Facades\Route::current()->action['as'] === 'index') text-danger @endif"
                    href="{{ route('index') }}"><i class="fa fa-home fa-fw"></i>Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mr-5">
                 <a class="h5 nav-link @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'statistics') text-danger @endif"
                    href="{{ route('statistics') }}">Statistics</a>
+            </li>
+            <li class="nav-item">
+                <a class="h5 nav-link @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'users') text-danger @endif"
+                   href="{{ route('users') }}">Users</a>
             </li>
         </ul>
         <ul class="navbar-nav mx-5">

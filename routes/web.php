@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
 
     Route::get('/delete/{figure}', 'FigureController@delete')->name('delete')
         ->where('figure', '[0-9]+');
+
+    Route::get('/users', 'UserController@index')->name('users');
 });
 
 

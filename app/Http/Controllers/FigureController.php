@@ -20,7 +20,7 @@ class FigureController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->all() === []) {
+        if ($request->all() === [] || $request->showTypes === null) {
             return view('index', [
                 'figures' => null,
             ]);
