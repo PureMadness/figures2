@@ -93,16 +93,14 @@
                         <td>{{ print_r($figure['data'], true) }}</td>
                         <td>{{ $figure->area }}</td>
                         @if(isset($figure->image))
-                            <td><img class="image"
+                            <td><img class="icon"
                                      src="{{ \Illuminate\Support\Facades\Storage::url($figure->image) }}"/>
                             </td>
                         @else
                             <td></td>
                         @endif
                         <td>
-                            <form action="{{ route('figure.edit', [
-                     'figure' => $figure->id,
-                    ]) }}" method="get">
+                            <form action="{{ route('figure.edit', ['figure' => $figure->id,]) }}" method="get">
                                 <button type="submit" class="btn btn-primary btn-sm">edit</button>
                             </form>
                         </td>

@@ -24,7 +24,17 @@
         <div class="form-row">
             <div class="form-group col-12">
                 <label for="email">Email</label>
-                <input type="text" class="form-control form-control-lg" name="email" id="email" placeholder="Email address"/>
+                <input type="text" class="form-control form-control-lg
+                 @if($errors->get('email'))
+                    is-invalid
+                    @endif" name="email" id="email" placeholder="Email address"/>
+                @if ($errors->get('login'))
+                    @foreach ($errors->get('login') as $error)
+                        <div class="invalid-feedback">
+                            {{ $error }}<br/>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
         <div class="form-row">
@@ -50,8 +60,6 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block">
             Register
         </button>
-        </div>
-        </div>
     </form>
 
 @endsection
