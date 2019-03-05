@@ -28,8 +28,8 @@
                  @if($errors->get('email'))
                     is-invalid
                     @endif" name="email" id="email" placeholder="Email address"/>
-                @if ($errors->get('login'))
-                    @foreach ($errors->get('login') as $error)
+                @if ($errors->get('email'))
+                    @foreach ($errors->get('email') as $error)
                         <div class="invalid-feedback">
                             {{ $error }}<br/>
                         </div>
