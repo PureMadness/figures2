@@ -18,7 +18,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::select('id', 'login', 'role', 'blocked')->get();
+        $users = User::select('id', 'login', 'role', 'blocked')->paginate(10);
         //dd($users);
         return view('users', ['users' => $users]);
     }

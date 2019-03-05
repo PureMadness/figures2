@@ -36,7 +36,9 @@
             @endif
         </ul>
         <ul class="navbar-nav mx-5">
-            <a class="h5 nav-link" href="{{ route('logout') }}">Log out <i class="fas fa-sign-out-alt"></i></a>
+            <li class="nav-item">
+                <a class="h5 nav-link" href="{{ route('logout') }}">Log out <i class="fas fa-sign-out-alt"></i></a>
+            </li>
         </ul>
     </nav>
 </div>

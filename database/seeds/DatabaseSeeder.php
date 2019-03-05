@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         User::query()->truncate();
         Figure::query()->truncate();
         $user = new User();
-        $user->login = 'user';
+        $user->login = 'admin';
         $user->password = bcrypt('secret');
         $user->email = 'my.pure.mail@bk.ru';
         $user->role = 1;

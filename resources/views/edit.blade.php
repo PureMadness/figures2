@@ -9,7 +9,7 @@
             '$figure' => $figure,
             '$id' => $figure->id,
             ])
-            <div class="form-row">
+            <div class="form-group my-1">
             <input type="file" class="form-control-file" accept="image/*" name="image">
 
             @if($figure->image !== null)
@@ -22,7 +22,7 @@
             @endif
             </div>
             <input type="hidden" name="type" value="{{ $figure->type }}">
-            <div class="form-row">
+            <div class="form-group">
                 <button class="btn btn-primary" type="submit">
                     Edit
                 </button>

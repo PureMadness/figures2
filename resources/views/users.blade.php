@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container align-items-center">
         @if (session('actionMessage'))
             <div class="alert alert-info">
                 {{ session('actionMessage') }}
@@ -39,6 +39,9 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="row justify-content-center">
+            {{ $users->links() }}
         </div>
     </div>
 
