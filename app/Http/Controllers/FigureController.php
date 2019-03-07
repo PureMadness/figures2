@@ -83,7 +83,7 @@ class FigureController extends Controller
     {
         $type = $request->get('type');
         /** @var ViewErrorBag $errors */
-        Session::put('myUrl', session()->get('_previous')['url']);
+        Session::put('previousUrl', session()->get('_previous')['url']);
         $errors = Session::pull('errors', new ViewErrorBag());
         return view('add', [
             'type' => $type,
@@ -114,7 +114,7 @@ class FigureController extends Controller
 
         Auth::user()->figures()->save($figure);
 
-        return Redirect::to(session('myUrl'))
+        return Redirect::to(session('previousUrl'))
             ->with('actionMessage', $actionMessage);
     }
 
@@ -154,11 +154,26 @@ class FigureController extends Controller
                 ->with('errorMessage', 'U can edit only your figures!!!');
         }
         /** @var ViewErrorBag $errors */
-        Session::put('myUrl', session()->get('_previous')['url']);
+        Session::put('previousUrl', session()->get('_previous')['url']);
         $errors = Session::pull('errors', new ViewErrorBag());
         return view('edit', [
             'figure' => $figure,
             'errors' => $errors,
         ]);
+    }
+
+    public function confirmDeleteLess(Request $request)
+    {
+        $number = Auth::user()->figures()->where('area', '<=', $request->deleteValue)->count();
+        return Redirect::route('index')->with([
+            'deleteNumber' => $number,
+            'value' => $request->deleteValue,
+        ]);
+    }
+
+    public function deleteLess(int $value)
+    {
+        Auth::user()->figures()->where('area', '<=', $value)->delete();
+        return Redirect::route('index')->with('actionMessage', 'Where delete figures with area less than ' . $value);
     }
 }

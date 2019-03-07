@@ -1,9 +1,9 @@
 @extends('layouts.layout')
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="form-row justify-content-center">
             <div class="col">
-                <label class="" for="type">Select figure you want to add:</label>
+                <label for="type">Select figure you want to add:</label>
                 <form action="{{  route('figure.addForm') }}" method="get">
                     <select class="custom-select col-6 col-md-3" name="type" id="type">
                         <option value="circle">Circle</option>
@@ -23,7 +23,7 @@
         <form action="{{ route('index') }}" method="get">
             <div class="form-row align-items-center">
                 <div class="form-group col-12 col-md-4">
-                    <label for="showTypes" class="col-form-label col-auto">Type of figure</label>
+                    <label for="showTypes" class="col-form-label">Type of figure</label>
                     <select class="custom-select col-6" name="showTypes[]" id="showTypes" multiple>
                         <option value="circle" @isset($circleCheck) selected @endisset>Circles</option>
                         <option value="square" @isset($squareCheck) selected @endisset>Squares</option>
@@ -57,6 +57,41 @@
                 </div>
             </div>
         </form>
+    </div>
+    <hr>
+    <div class="container">
+        @unless(session('deleteNumber'))
+        <form action="{{ route('confirmDL') }}" method="get">
+            <div class="form-row">
+                <label for="deleteValue" class="col-form-label">
+                    Enter a value less than which you want to delete:
+                </label>
+                <div class="col-4">
+                    <input type="text" class="form-control" id="deleteValue" name="deleteValue">
+                </div>
+                <button type="submit" class="btn btn-danger">
+                    delete
+                </button>
+            </div>
+        </form>
+        @endunless
+        @if(session('deleteNumber'))
+            <div class="alert alert-danger mb-1">
+                Do you realy want to delete {{ session('deleteNumber') }} figures?
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <form class="form-inline" action="{{ route('delete.less', session('value')) }}" method="get">
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                    </form>
+                </div>
+                <div class="form-group">
+                    <form class="col" action="{{ route('index') }}" method="get">
+                        <button type="submit" class="btn btn-primary">No</button>
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
     <hr>
     <div class="container text-center">
