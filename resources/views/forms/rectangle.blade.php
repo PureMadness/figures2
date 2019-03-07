@@ -26,7 +26,7 @@
                 @endif"
                 @isset($figure)
                     value="{{ $figure->data['y1'] }}"
-                @endisset name="data[x2]" id="y1" placeholder="y1"/>
+                @endisset name="data[y1]" id="y1" placeholder="y1"/>
 
         @if ($errors->get('data.y1'))
             @foreach ($errors->get('data.y1') as $error)

@@ -74,7 +74,7 @@ class FigureController extends Controller
     {
         $type = $request->get('type');
         /** @var ViewErrorBag $errors */
-
+        Session::put('myUrl', session()->get('_previous')['url']);
         $errors = Session::pull('errors', new ViewErrorBag());
         return view('add', [
             'type' => $type,
@@ -105,7 +105,7 @@ class FigureController extends Controller
 
         Auth::user()->figures()->save($figure);
 
-        return Redirect::route('index')
+        return Redirect::to(session('myUrl'))
             ->with('actionMessage', $actionMessage);
     }
 
@@ -126,15 +126,15 @@ class FigureController extends Controller
         ]);
     }
 
-    public function delete(Figure $figure)
+    public function delete(Figure $figure, Request $request)
     {
         if ($figure->user_id !== Auth::id()) {
-            return Redirect::route('index')
+            return Redirect::to(session()->get('_previous')['url'])
                 ->with('errorMessage', 'U can delete only your figures!!!');
         }
 
         $figure->delete();
-        return Redirect::route('index')
+        return Redirect::to(session()->get('_previous')['url'])
             ->with('actionMessage', $figure->type . ' figure was deleted!!!');
     }
 
@@ -145,7 +145,7 @@ class FigureController extends Controller
                 ->with('errorMessage', 'U can edit only your figures!!!');
         }
         /** @var ViewErrorBag $errors */
-
+        Session::put('myUrl', session()->get('_previous')['url']);
         $errors = Session::pull('errors', new ViewErrorBag());
         return view('edit', [
             'figure' => $figure,
