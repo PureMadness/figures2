@@ -41,10 +41,9 @@
                     <div class="form-check">
                         <input type="radio" class="form-check-input" id="blocked" name="blocked" value="no" @unless($user->blocked) checked @endunless>No</input>
                     </div>
-                    </select>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="form-row pl-1">
                 <button class="col-3 btn btn-primary btn-block" type="submit">
                     Edit
                 </button>

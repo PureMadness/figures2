@@ -20,11 +20,20 @@ class FigureController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->all() === [] || $request->showTypes === null) {
+        if ($request->all() === []) {
+            $figures = Auth::user()->figures()->paginate(15);
             return view('index', [
-                'figures' => null,
+                'circleCheck' => 'on',
+                'squareCheck' => 'on',
+                'triangleCheck' => 'on',
+                'rectangleCheck' => 'on',
+                'figures' => $figures,
             ]);
         }
+        if ($request->showTypes === null) {
+            return view('index');
+        }
+
         $params = [];
         $showTypes = $request->showTypes;
         $userFigures = Auth::user()->figures();
