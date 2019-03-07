@@ -17,6 +17,7 @@
                     <th>Role</th>
                     <th>Status</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,6 +36,14 @@
                                 <button type="submit" class="btn btn-primary btn-sm">edit</button>
                             </form>
                         </td>
+                        @if($user->id === 1) <td></td>
+                        @else
+                        <td>
+                            <form action="{{ route('user.delete', ['user' => $user->id,]) }}" method="get">
+                                <button type="submit" class="btn btn-danger btn-sm">del</button>
+                            </form>
+                        </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

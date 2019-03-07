@@ -128,7 +128,6 @@ class FigureController extends Controller
 
     public function delete(Figure $figure)
     {
-        dd(session());
         if ($figure->user_id !== Auth::id()) {
             return Redirect::route('index')
                 ->with('errorMessage', 'U can delete only your figures!!!');

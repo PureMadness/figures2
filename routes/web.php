@@ -44,7 +44,11 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
 
         Route::post('/users/save/{user}', 'UserController@save')
             ->name('user.save')
-            ->where('figure', '[0-9]+');
+            ->where('user', '[0-9]+');
+
+        Route::get('/users/delete/{user}', 'UserController@delete')
+            ->name('user.delete')
+            ->where('user', '[0-9]+');
     });
 });
 

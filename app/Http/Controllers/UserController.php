@@ -57,4 +57,10 @@ class UserController extends Controller
             'errors' => $errors,
         ]);
     }
+
+    public function delete(User $user){
+        $user->delete();
+        return Redirect::route('users')
+            ->with('actionMessage', $user->login . ' was deleted!!!');
+    }
 }
