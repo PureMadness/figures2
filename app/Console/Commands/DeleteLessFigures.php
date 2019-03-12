@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Figure;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
 class DeleteLessFigures extends Command
 {
@@ -38,11 +39,14 @@ class DeleteLessFigures extends Command
      */
     public function handle()
     {
-        $figures = Figure::where('area', '<=', $this->argument('area'));
+        $figures = Figure::all()->where('area', '<=', $this->argument('area'));
         $count = $figures->count();
         $this->info($this->argument('area'));
         if ($this->confirm('Do you realy want to delete ' . $count . ' figures?')){
-            $figures->delete();
+            foreach ($figures as $figure) {
+                    Storage::delete($figure->image);
+                    $figure->delete();
+            }
         }
     }
 }
