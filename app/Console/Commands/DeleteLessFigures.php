@@ -39,14 +39,17 @@ class DeleteLessFigures extends Command
      */
     public function handle()
     {
-        $figures = Figure::all()->where('area', '<=', $this->argument('area'));
-        $count = $figures->count();
+        $count = Figure::where('area', '<=', $this->argument('area'))->count();
         $this->info($this->argument('area'));
         if ($this->confirm('Do you realy want to delete ' . $count . ' figures?')){
-            foreach ($figures as $figure) {
+            Figure::where('area', '<=', $this->argument('area'))->chunk(100, function ($figures) {
+                foreach ($figures as $figure) {
                     Storage::delete($figure->image);
                     $figure->delete();
-            }
+
+                }
+                $this->info(1);
+            });
         }
     }
 }
