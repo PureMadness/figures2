@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePasswordRequest;
+use App\Jobs\SendRestoreLink;
 use App\Mail\RestoreLinkShipped;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class MailController extends Controller
             return Redirect::route('restore')
                 ->with('errorMessage', 'No match user with this email');
         } else {
-            Mail::to($user)->send(new RestoreLinkShipped($user));
+           dispatch((new SendRestoreLink($user))->onQueue('emails'));
             return Redirect::route('restore')
                 ->with('returnMessage', 'We send mail on u\'r email. Go check out!');
         }
