@@ -38,6 +38,9 @@
                 <a class="h5 nav-link @if( \Illuminate\Support\Facades\Route::current()->action['as'] === 'users') text-danger @endif"
                    href="{{ route('users') }}">Users</a>
             </li>
+            <li class="nav-item ml-5">
+                <a class="h5 nav-link" href="{{ route('favorites') }}"><i class="fas fa-star text-warning"></i>My Favorites</a>
+            </li>
         </ul>
         <ul class="navbar-nav mx-5">
             <li class="nav-item">

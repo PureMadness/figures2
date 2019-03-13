@@ -21,4 +21,8 @@ class User extends Model implements AuthenticatableContract
     public function figures(){
         return $this->hasMany('App\Models\Figure');
     }
+
+    public function favorites(){
+        return $this->belongsToMany('App\Models\Figure');
+    }
 }

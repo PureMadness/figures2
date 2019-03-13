@@ -18,7 +18,7 @@
         @include('sections.table', [
         'figures' => isset($figures) ? $figures : null,
         'user' => \Illuminate\Support\Facades\Auth::user(),
-        'users' => true,
+        'fav' => true,
         ])
         @isset($figures)
             <div class="row justify-content-center">
@@ -28,4 +28,5 @@
             </div>
         @endisset
     </div>
+
 @endsection

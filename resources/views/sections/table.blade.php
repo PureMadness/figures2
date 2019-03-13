@@ -10,6 +10,9 @@
             <th>Edit</th>
             <th>Delete</th>
         @endif
+        @if(isset($fav) || isset($users) && (isset($figures) && ($figures[0]['user_id'] !== $user->id)))
+            <th></th>
+        @endif
     </tr>
     </thead>
     <tbody>
@@ -21,8 +24,8 @@
                 <td>{{ print_r($figure['data'], true) }}</td>
                 <td>{{ $figure->area }}</td>
                 @if(isset($figure->image))
-                    <td><img class="icon"
-                             src="{{ \Illuminate\Support\Facades\Storage::url($figure->image) }}"/>
+                    <td>
+                        <img class="icon" src="{{ \Illuminate\Support\Facades\Storage::url($figure->image) }}"/>
                     </td>
                 @else
                     <td></td>
@@ -39,6 +42,24 @@
                         </form>
                     </td>
                 @endif
+                @isset($fav)
+                    <td>
+                        <a href="{{ route('delete.favorite', $figure->id) }}"><i
+                                class="fas fa-star text-warning"></i></a>
+                    </td>
+                @endif
+                @if(isset($users) && ($figures[0]['user_id'] !== $user->id))
+                    @if($user->favorites()->find($figure->id) !== null)
+                        <td>
+                            <a href="{{ route('delete.favorite', $figure->id) }}"><i
+                                    class="fas fa-star text-warning"></i></a>
+                        </td>
+                    @else
+                        <td>
+                            <a href="{{ route('add.favorite', $figure->id) }}"><i class="far fa-star text-info"></i></a>
+                        </td>
+                    @endif
+                @endisset
             </tr>
         @endforeach
     @endisset

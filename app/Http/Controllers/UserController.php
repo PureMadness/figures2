@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EditUserRequest;
+use App\Models\Figure;
 use App\Models\User;
 use http\Exception\BadMethodCallException;
 use Illuminate\Http\Request;
@@ -19,7 +20,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::select('id', 'login', 'role', 'blocked')->paginate(10);
-        //dd($users);
         return view('users', ['users' => $users]);
     }
 
@@ -51,16 +51,34 @@ class UserController extends Controller
         /** @var ViewErrorBag $errors */
 
         $errors = Session::pull('errors', new ViewErrorBag());
-        //dd($errors);
         return view('users.edit', [
             'user' => $user,
             'errors' => $errors,
         ]);
     }
 
-    public function delete(User $user){
+    public function delete(User $user)
+    {
         $user->delete();
         return Redirect::route('users')
             ->with('actionMessage', $user->login . ' was deleted!!!');
+    }
+
+    public function favorites()
+    {
+        $figures = Auth::user()->favorites()->paginate(15);
+        return view('users.favorites', ['figures' => $figures]);
+    }
+
+    public function addFavorite(Figure $figure){
+        Auth::user()->favorites()->attach($figure);
+        return Redirect::to(session()->get('_previous')['url'])
+            ->with('actionMessage', $figure->id . ' figure was added to your favorite!!!');
+    }
+
+    public function deleteFavorite(Figure $figure){
+        Auth::user()->favorites()->detach($figure);
+        return Redirect::to(session()->get('_previous')['url'])
+            ->with('actionMessage', $figure->id . ' figure was deleted from your favorite!!!');
     }
 }
