@@ -176,4 +176,12 @@ class FigureController extends Controller
         Auth::user()->figures()->where('area', '<=', $value)->delete();
         return Redirect::route('index')->with('actionMessage', 'Where delete figures with area less than ' . $value);
     }
+
+    public function user(User $user)
+    {
+
+        $figures = $user->figures()->paginate(15);
+
+        return view('users.figures', ['figures' => $figures]);
+    }
 }
