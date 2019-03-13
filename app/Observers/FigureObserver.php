@@ -10,6 +10,6 @@ class FigureObserver
     public function deleting(Figure $figure)
     {
         Storage::delete($figure->image);
-        $figure->belongsToMany('App\Models\user')->detach();
+        $figure->belongsToMany('App\Models\User')->detach();
     }
 }

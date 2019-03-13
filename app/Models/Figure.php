@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Figure extends Model
 {
-    protected $events = [ 'deleted' => FigureDeleted::class ];
-
     protected $table = 'figures';
 
     public $timestamps = false;
