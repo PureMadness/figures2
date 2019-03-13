@@ -59,40 +59,6 @@
         </form>
     </div>
     <hr>
-    <div class="container">
-        @unless(session('deleteNumber'))
-        <form action="{{ route('confirmDL') }}" method="get">
-            <div class="form-row">
-                <label for="deleteValue" class="col-form-label">
-                    Enter a value less than which you want to delete:
-                </label>
-                <div class="col-4">
-                    <input type="text" class="form-control" id="deleteValue" name="deleteValue">
-                </div>
-                <button type="submit" class="btn btn-danger">
-                    delete
-                </button>
-            </div>
-        </form>
-        @endunless
-        @if(session('deleteNumber'))
-            <div class="alert alert-danger mb-1">
-                Do you realy want to delete {{ session('deleteNumber') }} figures?
-            </div>
-            <div class="form-inline">
-                <div class="form-group">
-                    <form class="form-inline" action="{{ route('delete.less', session('value')) }}" method="get">
-                        <button type="submit" class="btn btn-danger">Yes</button>
-                    </form>
-                </div>
-                <div class="form-group">
-                    <form class="col" action="{{ route('index') }}" method="get">
-                        <button type="submit" class="btn btn-primary">No</button>
-                    </form>
-                </div>
-            </div>
-        @endif
-    </div>
     <hr>
     <div class="container text-center">
         @if (session('actionMessage'))

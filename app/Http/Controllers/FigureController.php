@@ -162,21 +162,6 @@ class FigureController extends Controller
         ]);
     }
 
-    public function confirmDeleteLess(Request $request)
-    {
-        $number = Auth::user()->figures()->where('area', '<=', $request->deleteValue)->count();
-        return Redirect::route('index')->with([
-            'deleteNumber' => $number,
-            'value' => $request->deleteValue,
-        ]);
-    }
-
-    public function deleteLess(int $value)
-    {
-        Auth::user()->figures()->where('area', '<=', $value)->delete();
-        return Redirect::route('index')->with('actionMessage', 'Where delete figures with area less than ' . $value);
-    }
-
     public function user(User $user)
     {
 

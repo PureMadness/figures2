@@ -34,13 +34,6 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
         ->name('delete')
         ->where('figure', '[0-9]+');
 
-    Route::get('/confirmDeleteLess', 'FigureController@confirmDeleteLess')
-        ->name('confirmDL');
-
-    Route::get('/deleteLess/{number}', 'FigureController@deleteLess')
-        ->name('delete.less')
-        ->where('number', '[0-9]+');
-
     Route::get('/users', 'UserController@index')
         ->name('users');
 
