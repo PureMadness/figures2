@@ -51,12 +51,12 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
     Route::get('/favorites', 'UserController@favorites')
         ->name('favorites');
 
-    Route::get('/addFav/{figure}', 'UserController@deleteFavorite')
-        ->name('delete.favorite')
+    Route::get('/addFav/{figure}', 'UserController@addFavorite')
+        ->name('add.favorite')
         ->where('figure', '[0-9]+');
 
-    Route::get('/deleteFav/{figure}', 'UserController@addFavorite')
-        ->name('add.favorite')
+    Route::get('/deleteFav/{figure}', 'UserController@deleteFavorite')
+        ->name('delete.favorite')
         ->where('figure', '[0-9]+');
 
     Route::group(['middleware' => ['admin']], function (\Illuminate\Routing\Router $router) {

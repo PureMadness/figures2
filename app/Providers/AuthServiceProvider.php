@@ -31,5 +31,12 @@ class AuthServiceProvider extends ServiceProvider
             }
             return false;
         });
+
+        Gate::define('canAddFav', function ($user, $figure) {
+            if($user->id === $figure->user_id) {
+                return false;
+            }
+            return true;
+        });
     }
 }

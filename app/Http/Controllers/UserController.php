@@ -71,6 +71,10 @@ class UserController extends Controller
     }
 
     public function addFavorite(Figure $figure){
+        if (Gate::denies('canAddFav', $figure)) {
+            return Redirect::route('index')
+                ->with('errorMessage', 'U can\'t add to favorites your figures !!!');
+        }
         Auth::user()->favorites()->attach($figure);
         return Redirect::to(session()->get('_previous')['url'])
             ->with('actionMessage', $figure->id . ' figure was added to your favorite!!!');
