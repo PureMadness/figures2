@@ -18,7 +18,7 @@
     <tbody>
     @isset($figures)
         @foreach($figures as $figure)
-            <tr>
+            <tr @isset($fav) id="figure-{{ $figure->id }}" @endisset>
                 <td>{{ $figure->id }}</td>
                 <td>{{ $figure->type }}</td>
                 <td>{{ print_r($figure['data'], true) }}</td>
@@ -44,19 +44,19 @@
                 @endif
                 @isset($fav)
                     <td>
-                        <a href="{{ route('delete.favorite', $figure->id) }}"><i
-                                class="fas fa-star text-warning"></i></a>
+                        <a onclick="deleteFromFav({{ $figure->id }})"><i class="fas fa-star text-warning"></i></a>
                     </td>
                 @endif
                 @if(isset($users) && ($figures[0]['user_id'] !== $user->id))
                     @if($user->favorites()->find($figure->id) !== null)
                         <td>
-                            <a href="{{ route('delete.favorite', $figure->id) }}"><i
-                                    class="fas fa-star text-warning"></i></a>
+                            <a id="fav-{{ $figure->id }}"
+                               onclick="deleteFavorite({{ $figure->id }})"><i class="fas fa-star text-warning"></i></a>
                         </td>
                     @else
                         <td>
-                            <a href="{{ route('add.favorite', $figure->id) }}"><i class="far fa-star text-info"></i></a>
+                            <a id="notFav-{{ $figure->id }}"
+                               onclick="addFavorite({{ $figure->id }})"><i class="far fa-star text-info"></i></a>
                         </td>
                     @endif
                 @endisset

@@ -71,18 +71,20 @@ class UserController extends Controller
     }
 
     public function addFavorite(Figure $figure){
+
         if (Gate::denies('canAddFav', $figure)) {
             return Redirect::route('index')
                 ->with('errorMessage', 'U can\'t add to favorites your figures !!!');
         }
         Auth::user()->favorites()->attach($figure);
-        return Redirect::to(session()->get('_previous')['url'])
-            ->with('actionMessage', $figure->id . ' figure was added to your favorite!!!');
+        /*return Redirect::to(session()->get('_previous')['url'])
+            ->with('actionMessage', $figure->id . ' figure was added to your favorite!!!');*/
     }
 
-    public function deleteFavorite(Figure $figure){
+    public function deleteFavorite(Figure $figure, Request $request){
+        //dd($request->all());
         Auth::user()->favorites()->detach($figure);
-        return Redirect::to(session()->get('_previous')['url'])
-            ->with('actionMessage', $figure->id . ' figure was deleted from your favorite!!!');
+        /*return Redirect::to(session()->get('_previous')['url'])
+            ->with('actionMessage', $figure->id . ' figure was deleted from your favorite!!!');*/
     }
 }
