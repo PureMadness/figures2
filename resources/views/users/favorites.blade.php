@@ -14,19 +14,10 @@
             </div>
         @endif
     </div>
-    <div class="container table-responsive text-center">
-        @include('sections.table', [
-        'figures' => isset($figures) ? $figures : null,
-        'user' => \Illuminate\Support\Facades\Auth::user(),
-        'fav' => true,
-        ])
-        @isset($figures)
-            <div class="row justify-content-center">
-                <div>
-                    {{ $figures->links() }}
-                </div>
-            </div>
-        @endisset
-    </div>
+    @include('sections.table', [
+    'figures' => isset($figures) ? $figures : null,
+    'user' => \Illuminate\Support\Facades\Auth::user(),
+    'fav' => true,
+    ])
 
 @endsection

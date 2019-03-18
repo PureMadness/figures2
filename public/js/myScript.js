@@ -1,3 +1,19 @@
+$(document).ready(function () {
+
+    $(document).on('click', "a.page-link", (e) => {
+        e.preventDefault();
+        let $el = $(e.target);
+        $.get('/favorites?page=' + $el.text(), {}, (response) => {
+            //document.getElementsByTagName('table')[0].innerHTML = response;
+            $("#table").html(response);
+        });
+        $el.attr("href");
+
+        return false;
+    });
+
+});
+
 function deleteFavorite(value) {
     $.get('/deleteFav/' + value, {}, (response) => {
         var icon = $("#fav-" + value + " i");
@@ -11,7 +27,7 @@ function deleteFavorite(value) {
 
 function addFavorite(value) {
     $.get('/addFav/' + value, {}, (response) => {
-        var icon = $(`i#notFav-${value}`);
+        var icon = $(`#notFav-${value} i`);
         icon.removeClass();
         icon.addClass("fas fa-star text-warning");
         var elem = $("#notFav-" + value);

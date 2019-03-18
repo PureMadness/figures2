@@ -72,23 +72,10 @@
             </div>
         @endif
     </div>
-    <div class="container table-responsive text-center">
-        @include('sections.table', ['figures' => isset($figures) ? $figures : null, 'user' => \Illuminate\Support\Facades\Auth::user(),])
-        @isset($figures)
-            <div class="row justify-content-center">
-                <div>
-                    {{ $figures->appends([
-                    'showTypes' => [
-                        isset($circleCheck) ? 'circle' : null,
-                        isset($squareCheck) ? 'square' : null,
-                        isset($triangleCheck) ? 'triangle' : null,
-                        isset($rectangleCheck) ? 'rectangle' : null
-                        ],
-                    'from' => isset($from) ? $from : null, 'to' => isset($to) ? $to : null,
-                    'sort' => (isset($sort) && $sort === 'asc') ? 'asc' : (isset($sort) && $sort === 'desc' ? 'desc' : null),
-                    ])->links() }}
-                </div>
-            </div>
-        @endisset
-    </div>
+    @include('sections.table',
+     [
+        'figures' => isset($figures) ? $figures : null,
+        'user' => \Illuminate\Support\Facades\Auth::user(),
+     ])
+
 @endsection

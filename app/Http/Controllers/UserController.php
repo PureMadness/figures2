@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ViewErrorBag;
@@ -64,27 +65,35 @@ class UserController extends Controller
             ->with('actionMessage', $user->login . ' was deleted!!!');
     }
 
-    public function favorites()
+    public function favorites(Request $request)
     {
+        //dd($request);
         $figures = Auth::user()->favorites()->paginate(15);
-        return view('users.favorites', ['figures' => $figures]);
+
+        return $request->ajax() ?
+            view('sections.table',[
+                'fav' => true,
+                'figures' => $figures,
+                'user' => Auth::user()])
+            :   Response::view('users.favorites', ['figures' => $figures]);
     }
 
-    public function addFavorite(Figure $figure){
-
+    public function addFavorite(Figure $figure)
+    {
         if (Gate::denies('canAddFav', $figure)) {
             return Redirect::route('index')
                 ->with('errorMessage', 'U can\'t add to favorites your figures !!!');
         }
         Auth::user()->favorites()->attach($figure);
-        /*return Redirect::to(session()->get('_previous')['url'])
-            ->with('actionMessage', $figure->id . ' figure was added to your favorite!!!');*/
+        return "done";
     }
 
-    public function deleteFavorite(Figure $figure, Request $request){
-        //dd($request->all());
+    public function deleteFavorite(Figure $figure, Request $request)
+    {
         Auth::user()->favorites()->detach($figure);
+        return Response::make(Auth::user()->favorites()->paginate()->toJson());
         /*return Redirect::to(session()->get('_previous')['url'])
             ->with('actionMessage', $figure->id . ' figure was deleted from your favorite!!!');*/
     }
+
 }
