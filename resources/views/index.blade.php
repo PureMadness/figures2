@@ -72,10 +72,11 @@
             </div>
         @endif
     </div>
-    @include('sections.table',
-     [
-        'figures' => isset($figures) ? $figures : null,
-        'user' => \Illuminate\Support\Facades\Auth::user(),
-     ])
-
+    <div class="container table-responsive text-center" id="table">
+        @include('sections.table',
+         [
+            'figures' => isset($figures) ? $figures : null,
+            'user' => \Illuminate\Support\Facades\Auth::user(),
+         ])
+    </div>
 @endsection

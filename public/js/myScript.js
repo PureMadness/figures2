@@ -1,12 +1,28 @@
 $(document).ready(function () {
-
+    var curPageNum = 1;
     $(document).on('click', "a.page-link", (e) => {
         e.preventDefault();
         let $el = $(e.target);
-        $.get('/favorites?page=' + $el.text(), {}, (response) => {
-            //document.getElementsByTagName('table')[0].innerHTML = response;
-            $("#table").html(response);
-        });
+        let text = $el.text();
+        if (text !== "‹" && text !== "›") {
+            $.get('/favorites?page=' + text, {}, (response) => {
+                //document.getElementsByTagName('table')[0].innerHTML = response;
+                $("#table").html(response);
+            });
+            curPageNum = text;
+        } else if (text === "‹") {
+            $.get('/favorites?page=' + (Number.parseInt(curPageNum) - 1), {}, (response) => {
+                //document.getElementsByTagName('table')[0].innerHTML = response;
+                $("#table").html(response);
+            });
+            curPageNum--;
+        } else if (text === "›") {
+            $.get('/favorites?page=' + (Number.parseInt(curPageNum) + 1), {}, (response) => {
+                //document.getElementsByTagName('table')[0].innerHTML = response;
+                $("#table").html(response);
+            });
+            curPageNum++;
+        }
         $el.attr("href");
 
         return false;
